@@ -1,0 +1,28 @@
+.chat{
+  display: flex;
+}
+
+.chatItems{
+  padding-left: 10px;
+}
+.chatItems a{
+  text-decoration: none;
+  color: rgb(86, 105, 105);
+}
+
+.images{
+  height: 40px;
+  width: 40px;
+}
+
+.messages{
+  padding-left: 70px;
+  padding-top: 10px;
+}
+
+.inputText{
+  margin-top:10px
+}
+
+
+
