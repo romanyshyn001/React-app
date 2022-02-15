@@ -3,7 +3,9 @@ import Header from './components/header/Header';
 import NavBar from './components/navBar/NavBar';
 import Profile from './components/profile/Profile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dialogs from './components/Dialogs/Dialog';
+import DialogsContainer from './components/Dialogs/dialogContainer';
+
+
 
 
 const App = (props) => {
@@ -15,14 +17,14 @@ const App = (props) => {
         <div className='app-wrapper-content'>
           <Routes>
              <Route path='/Dialogs/*' 
-                element={<Dialogs 
-                  state={props.state.dialogPage} />} />
+                element={<DialogsContainer
+                  store={props.store}/>} />
                 
              <Route path='/Profile/*' 
                 element={<Profile 
-                  profilePage={props.state.profilePage} 
-                  addPost={props.addPost}
-                  updateNewPostText={props.updateNewPostText}/>} /> 
+                profilePage={props.state.profilePage} 
+                dispatch={props.dispatch}
+                newPostText={props.state.profilePage.newPostText}/>} /> 
           </Routes>
         </div>
         </div>

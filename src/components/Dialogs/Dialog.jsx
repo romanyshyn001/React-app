@@ -1,6 +1,6 @@
 import s from './Dialogs.module.css';
-import {ChatItem} from './DialogItem/DialogItem';
 import React from 'react';
+import { ChatItem } from './DialogItem/DialogItem';
 
 //Шаблоне повідомленн
 const Message = (props) => {
@@ -10,22 +10,24 @@ const Message = (props) => {
         </div>
     )
 }
-let postEl = React.createRef()
-const sendMessage = () => {
-    let text = postEl.current.value
-    alert(text)
-
-}
 
 const Dialogs = (props) => {
-let dialogsElems = 
-    props.state.dialogsData.map((dialog, i) => 
-    <ChatItem Key={i} name={dialog.name} id={dialog.id} />)
-//Додати key
-let messagesElems = 
-    props.state.messageData.map((messageItem, i) => 
-    <Message Key={i} message={messageItem.message}/>)    
-   
+
+let state = props.dialogPage
+let dialogsElems = state.dialogsData.map((dialog, i) => <ChatItem Key={i} name={dialog.name} id={dialog.id} />)
+let messagesElems = state.messageData.map((messageItem, i) => <Message Key={i} message={messageItem.message}/>)
+
+
+let sendMessageClick = () => {
+    props.sendMessageByClick()
+}
+let updateDialogText = (e) => {  
+    let body = e.target.value
+    props.updateDialogTextBody(body)
+    }
+
+let fixedMessage = state.newDialogPost
+
     return (    
         <div className={s.chat}>
            <div className={s.chatItems}>
@@ -34,13 +36,17 @@ let messagesElems =
             <div className={s.messages}>
                 { messagesElems }
                 <label>
-                    <input className={s.inputText} ref={postEl} ></input>
-                    <button onClick={sendMessage}>Send</button>
+                    <input className={s.inputText} 
+                        onChange={ updateDialogText  } 
+                        value={ fixedMessage }
+                        type='text'></input>
+                    <button 
+                        onClick={ sendMessageClick }>Send
+                    </button>
                 </label>
             </div>  
         </div>
     )
 }
 
-export default Dialogs
-
+export default Dialogs;
