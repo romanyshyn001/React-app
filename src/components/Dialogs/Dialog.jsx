@@ -17,25 +17,7 @@ const sendMessage = () => {
 
 }
 
-
 const Dialogs = (props) => {
-//Перенесли дані BLL на рівень вище до index.js(передали в map через props)
-// let dialogsData = [
-//     {id:1, name:'Roman'},
-//     {id:2, name:'Victor'},
-//     {id:3, name:'Vasya'},
-//     {id:4, name:'Ivan'},
-//     {id:5, name:'Sergiy'}
-// ]
-// let messageData = [
-//     {id:1, message:'Hi'},
-//     {id:2, message:'How is going?'},
-//     {id:3, message:'What the plan'},
-//     {id:4, message:'Bingo'},
-//     {id:5, message:'Great Job!'}
-// ]
-
-//Додати key
 let dialogsElems = 
     props.state.dialogsData.map((dialog, i) => 
     <ChatItem Key={i} name={dialog.name} id={dialog.id} />)
@@ -60,4 +42,4 @@ let messagesElems =
     )
 }
 
-export default Dialogs;
+export default Dialogs
