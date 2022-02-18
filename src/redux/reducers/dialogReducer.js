@@ -20,6 +20,13 @@ let initialState = {
 }
 
 const dialogReducer = (state = initialState, action) => {
+    
+    // let stateCopy = { 
+    //     ...state,
+    //    // messages: [...state.messageData ]
+    // }
+    // stateCopy.messageData = {...state.messageData}
+
     switch(action.type){
         case ADD_DIALOG_POST:
             let body = state.newDialogPost

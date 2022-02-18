@@ -46,6 +46,7 @@ let store = {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
         this._callSubscriber(this._state) 
+        
     }
 }
 

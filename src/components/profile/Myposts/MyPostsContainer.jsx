@@ -1,27 +1,49 @@
-import Post from './Post/Post';
-import React from 'react';
 import { addPostCreator, updateNewPostTextCreator } from '../../../redux/reducers/profileReducer';
 import MyPosts from './MyPosts';
+import Post from './Post/Post';
+import { connect } from 'react-redux'
 
-const MyPostsContainer = (props) => {
-// let startPostValue = props.profilepage.newPostText
-let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-
-
-let addPost = () => {
-   props.dispatch(addPostCreator())   
+let mapStateProps = (state) => {
+   return {
+      posts: state.profilePage.posts,
+      newPostText: state.profilePage.newPostText
+   }
 }
-//тут додати колбек
-let onPostChange = (body) => {
-   props.dispatch(updateNewPostTextCreator(body))
-   
-}
-   return (
-      <MyPosts addNewPost={addPost}
-               updateNewPost={onPostChange}
-               postElem={postsElements}
-               newPostText={props.newPostText}/>
-   )
+let mapDispatchToProps = (dispatch) => {
+   return {
+      addNewPost: () => {
+         dispatch(addPostCreator())
+      },
+      updateNewPost: (body) => {
+         dispatch(updateNewPostTextCreator(body))
+      }
+   }
 }
 
+const MyPostsContainer = connect(mapStateProps, mapDispatchToProps) (MyPosts)
+
+// const MyPostsContainer = (props) => {
+
+//       return (
+//          <StoreContext.Consumer>
+//             {
+//                (store) => {
+//                   let addPost = () => {
+//                      store.dispatch(addPostCreator())   
+//                   }
+//                   let onPostChange = (body) => {
+//                      store.dispatch(updateNewPostTextCreator(body))
+                     
+//                   }
+
+//                   let state = store.getState()
+                  
+//                   return   <MyPosts addNewPost={addPost}
+//                               updateNewPost={onPostChange}
+//                               newPostText={state.profilePage.newPostText}
+//                               posts={state.profilePage.posts}/>
+//                }}
+//          </StoreContext.Consumer>
+//       )
+//    }
 export default MyPostsContainer;

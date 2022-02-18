@@ -14,19 +14,24 @@ let initiateState = {
 
 const profileReducer = (state = initiateState, action) => {
     switch(action.type){
-        case ADD_POST:
+        case ADD_POST: 
             let newPost = {
-                id:5,
+                id:6,
                 message: state.newPostText,
                 likesCount:1
             }
-           
+        // let stateCopy = {...state}
+        //     stateCopy.posts = [...state.posts]
             state.posts.push(newPost)
             state.newPostText = ''
+            
                 return state
+        //блочна область видимисті, бо два рази обявил stateCopy
         case UPDATE_NEW_POST_TEXT:
+        // let stateCopy = {...state}; 
             state.newPostText = action.updatedNewText
                 return state
+        
         default: 
                 return state
         }

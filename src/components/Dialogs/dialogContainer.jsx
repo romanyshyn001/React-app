@@ -1,23 +1,50 @@
 import React from 'react';
 import { addDialogTextCreator, updateDialogTextCreator } from '../../redux/reducers/dialogReducer';
 import Dialogs from './Dialog';
-// import {ChatItem} from './DialogItem/DialogItem';
-// import Message from './Message/Message'
+import { connect } from 'react-redux';
 
 
-const DialogsContainer = (props) => {
-let state = props.store.getState().dialogPage;
-
-let onSendMessageClick = () => {
-    props.store.dispatch(addDialogTextCreator())
+let mapStateToProps = (state) => {
+    // debugger;
+    return {
+        dialogPage: state.dialogPage
+    }
 }
 
-let onUpdateDialogText = (body) => {
-    props.store.dispatch(updateDialogTextCreator(body))
-}
-    return (<Dialogs sendMessageByClick={onSendMessageClick} 
-                     updateDialogTextBody={onUpdateDialogText}
-                     dialogPage={state}/>)
+let mapDispatchToProps = (dispatch) => {
+    return {        
+        sendMessageByClick: () => {
+            dispatch(addDialogTextCreator())
+        },
+        updateDialogTextBody: (body) => {
+            dispatch(updateDialogTextCreator(body))
+        }
+    }
 }
 
+ const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+// const DialogsContainer = () => {
+    
+    
+
+//         return  <StoreContext.Consumer>    
+//             { (store) => {
+
+//         let state = store.getState().dialogPage;
+
+//         let onSendMessageClick = () => {
+//             store.dispatch(addDialogTextCreator())
+//         }
+
+//         let onUpdateDialogText = (body) => {
+//             store.dispatch(updateDialogTextCreator(body))
+//         }
+//             return    <Dialogs sendMessageByClick={onSendMessageClick} 
+//                                updateDialogTextBody={onUpdateDialogText}
+//                                dialogPage={state}/>
+//             }}
+//             </StoreContext.Consumer>
+            
+// }
 export default DialogsContainer;

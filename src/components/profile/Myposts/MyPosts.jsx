@@ -1,12 +1,11 @@
 import s from './MyPosts.module.css';
 import React from 'react';
+import Post from './Post/Post';
 
 
 const MyPosts = (props) => {
-
-// let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-// видалив ref
 let newPostElement = React.createRef();
+let postElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id}/>)
 
 let addPost = () => {
    props.addNewPost()   
@@ -14,9 +13,7 @@ let addPost = () => {
 
 let onPostChange = () => {
    let text = newPostElement.current.value
-   props.updateNewPost(text)
-//   let action = updateNewPostTextCreator(text)
-      
+   props.updateNewPost(text)   
 }
 
    return (
@@ -27,7 +24,7 @@ let onPostChange = () => {
             <button onClick={ addPost }>Add post</button>
          </div>
          <div className={s.posts}>
-            { props.postElem }
+            { postElements }
          </div>
       </div>
    )
