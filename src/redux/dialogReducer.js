@@ -16,7 +16,7 @@ let initialState = {
         {id:4, message:'Bingo'},
         {id:5, message:'Great Job!'}
     ],
-    newDialogPost: '21s'  
+    newDialogPost: ''  
 }
 
 const dialogReducer = (state = initialState, action) => {
@@ -26,16 +26,20 @@ const dialogReducer = (state = initialState, action) => {
     //    // messages: [...state.messageData ]
     // }
     // stateCopy.messageData = {...state.messageData}
+    let stateCopy = {
+        ...state,
+    //messageData:[...state.messageData]
+};
 
     switch(action.type){
         case ADD_DIALOG_POST:
             let body = state.newDialogPost
-                state.messageData.push({id:6, message:body})
-                state.newDialogPost = ''
-            return state
+                stateCopy.messageData.push({id:6, message:body})
+                stateCopy.newDialogPost = ''
+            return stateCopy
         case UPDATE_NEW_DIALOG_TEXT:
-            state.newDialogPost = action.updatedDialogText
-            return state
+            stateCopy.newDialogPost = action.updatedDialogText
+            return stateCopy
         default:
             return state
     }

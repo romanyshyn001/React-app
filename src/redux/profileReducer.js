@@ -9,29 +9,29 @@ let initiateState = {
         {id:4, message:'Bingo', likesCount:16},
         {id:5, message:'Great Job!', likesCount:2}
     ],
-    newPostText:'Hello Warrior!'
+    newPostText:''
 }
 
 const profileReducer = (state = initiateState, action) => {
     switch(action.type){
-        case ADD_POST: 
+        case ADD_POST:{
             let newPost = {
                 id:6,
                 message: state.newPostText,
                 likesCount:1
             }
-        // let stateCopy = {...state}
-        //     stateCopy.posts = [...state.posts]
-            state.posts.push(newPost)
-            state.newPostText = ''
-            
-                return state
+            let stateCopy = {...state}
+            stateCopy.posts = [...state.posts]
+            stateCopy.posts.push(newPost)
+            stateCopy.newPostText = ''
+                return stateCopy
+        }
         //блочна область видимисті, бо два рази обявил stateCopy
-        case UPDATE_NEW_POST_TEXT:
-        // let stateCopy = {...state}; 
-            state.newPostText = action.updatedNewText
-                return state
-        
+        case UPDATE_NEW_POST_TEXT:{ 
+            let stateCopy = {...state}
+            stateCopy.newPostText = action.updatedNewText
+                return stateCopy
+        }
         default: 
                 return state
         }

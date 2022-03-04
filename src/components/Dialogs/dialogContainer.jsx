@@ -1,13 +1,13 @@
 import React from 'react';
-import { addDialogTextCreator, updateDialogTextCreator } from '../../redux/reducers/dialogReducer';
+import { addDialogTextCreator, updateDialogTextCreator } from '../../redux/dialogReducer';
 import Dialogs from './Dialog';
 import { connect } from 'react-redux';
 
 
 let mapStateToProps = (state) => {
-    // debugger;
     return {
-        dialogPage: state.dialogPage
+        dialogPage: state.dialogPage,
+        dialogText: state.dialogPage.newDialogPost
     }
 }
 

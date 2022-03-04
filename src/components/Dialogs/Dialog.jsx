@@ -21,7 +21,6 @@ let updateDialogText = (e) => {
     props.updateDialogTextBody(body)
     }
 
-let fixedMessage = state.newDialogPost
 
     return (    
         <div className={s.chat}>
@@ -31,10 +30,11 @@ let fixedMessage = state.newDialogPost
             <div className={s.messages}>
                 { messagesElems }
                 <label>
-                    <input className={s.inputText} 
-                        onChange={ updateDialogText  } 
-                        value={ fixedMessage }
-                        type='text'></input>
+                    <textarea className={s.inputText} 
+                            value={ props.dialogText }
+                            type='text'
+                            onChange={ updateDialogText  }> 
+                    </textarea>
                     <button 
                         onClick={ sendMessageClick }>Send
                     </button>

@@ -1,5 +1,7 @@
 import s from './Post.module.css';
 import ava from './ava.png'
+import React from 'react';
+
 const Post = (props) => {
         
         return (

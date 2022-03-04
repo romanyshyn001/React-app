@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import s from './../Dialogs.module.css'
 import avaMessage from './avaMessage.png'
-
+import React from 'react';
 const ChatItem = (props) => {
     let path = '/dialogs/' + props.id
 
