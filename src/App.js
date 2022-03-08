@@ -5,8 +5,8 @@ import Profile from './components/profile/Profile';
 import {Routes, Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/dialogContainer';
 import React from 'react';
-import UsersContainer from './components/Users/Users';
-
+import UsersContainer from './components/Users/UsersContainer';
+import Users from './components/Users/Users'
 
 
 const App = (props) => {
@@ -21,7 +21,7 @@ const App = (props) => {
              <Route path='/Profile' 
                     element={<Profile/>} /> 
              <Route path='/users' 
-                    element={<UsersContainer/>} />
+                    element={<UsersContainer/>} /> //виправити
           </Routes>
         </div>
         </div>
