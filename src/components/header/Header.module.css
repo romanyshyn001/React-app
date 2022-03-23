@@ -9,3 +9,10 @@
   height:100px;
   margin-top:-20px;
 }
+.loginBlock{
+  float: right;
+  font-size: 20px;
+}
+.loginBlock a{
+  color: white;
+}
