@@ -1,45 +1,59 @@
 import React from "react";
 import Profile from "../../Profile";
-import axios from "axios";
-import { setUserProfile } from "../../../../redux/profileReducer";
+import { getUserProfile } from "../../../../redux/profileReducer";
 import { connect } from "react-redux";
-import { useMatch } from "react-router-dom"
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
+import { withAuthNavigate } from "../../../HOC/withAuthRedirect";
+import { compose } from 'redux'
 
-class ProfileContainer extends React.Component {
-  
-
-  componentDidMount(){
-    // debugger;
-    let userId =   this.props.match 
-    if(!userId){
-      userId = 22850
-    }
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`
-    )
-        .then(response => {
-          this.props.setUserProfile(response.data)
-          // this.props.setTotalUserCount(response.data.totalCount)
-        })
-  }
-
-  render () {
-    return (
-        <Profile {...this.props} profile={this.props.profile}/>
-    )
-  }
+//Wrapper function
+function withRouter(Component) {
+   function ComponentWithRouterProps(props){
+      let location = useLocation()
+      let navigate = useNavigate()
+      let params = useParams()
+         return (
+            <Component 
+               {...props}
+               router={{location, navigate, params}}
+            />
+      )
+   }
+    return ComponentWithRouterProps
 }
 
+class ProfileContainer extends React.Component {  
+   componentDidMount(){
+   let userId = this.props.router.params.userId 
+   if(!userId){
+      userId = 2
+   }
+   this.props.getUserProfile(userId)
+}
+
+render () {
+         return (
+            <Profile {...this.props} 
+               profile={this.props.profile}
+            />
+      )
+   }
+}
+
+
+// let AuthNavigateComponent = withAuthNavigate(ProfileContainer)
 
 
 let mapStateToProps = (state) => ({
-   profile:state.profilePage.profile
+   profile:state.profilePage.profile,
 })
 
-const ProfileURLMatch = (props) => {
-  const match = useMatch('/profile/:userId/')
-    return <ProfileContainer {...props} match={match}/>
-}
+export default compose(
+   connect(mapStateToProps, { getUserProfile }),
+   withRouter,
+   withAuthNavigate
+)(ProfileContainer)
 
-export default connect(mapStateToProps, {
-  setUserProfile
-})(ProfileURLMatch)
+// export default connect(mapStateToProps, {
+//   getUserProfile
+// })(withRouter(AuthNavigateComponent))

@@ -2,12 +2,13 @@ import React from 'react';
 import { addDialogTextCreator, updateDialogTextCreator } from '../../redux/dialogReducer';
 import Dialogs from './Dialog';
 import { connect } from 'react-redux';
-
+import { withAuthNavigate } from './../HOC/withAuthRedirect'
+import { compose } from 'redux'
 
 let mapStateToProps = (state) => {
     return {
         dialogPage: state.dialogPage,
-        dialogText: state.dialogPage.newDialogPost
+        dialogText: state.dialogPage.newDialogPost,
     }
 }
 
@@ -22,12 +23,22 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
- const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+
+// let AuthNavigateComponent = withAuthNavigate(Dialogs) 
+
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthNavigateComponent)
+
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthNavigate
+)(Dialogs)
+
+
+
 
 // const DialogsContainer = () => {
-    
-    
-
 //         return  <StoreContext.Consumer>    
 //             { (store) => {
 
@@ -47,4 +58,3 @@ let mapDispatchToProps = (dispatch) => {
 //             </StoreContext.Consumer>
             
 // }
-export default DialogsContainer;

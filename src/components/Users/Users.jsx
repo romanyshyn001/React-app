@@ -10,11 +10,11 @@ let Users = (props) => {
   for(let i = 1; i <= pagesCount; i++){
     pages.push(i)
   }
- //debugger
+
+
  return (<React.Fragment>
       <div>
         { pages.map(p => {
-//          debugger;
             return <span className={props.currentPage === p  && styles.selectedPage} 
                          onClick={(e) => {props.onPageChanged(p)}} key={p.id}>{p}</span>
         })}
@@ -27,6 +27,7 @@ let Users = (props) => {
                     <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="img"  className={styles.userPhoto}/>
                   </NavLink>
                 </div>
+
                 <div>
                   { u.followed
                     ? <button disabled={props.followingInProgress.some(id => id === u.id)} 
@@ -37,6 +38,7 @@ let Users = (props) => {
                   }
                 </div>
               </span>
+              
               <span>
                 <span>
                   <div>{u.name}</div>

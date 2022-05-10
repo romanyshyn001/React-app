@@ -19,30 +19,6 @@ let mapDispatchToProps = (dispatch) => {
    }
 }
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps) (MyPosts)
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
-// const MyPostsContainer = (props) => {
-
-//       return (
-//          <StoreContext.Consumer>
-//             {
-//                (store) => {
-//                   let addPost = () => {
-//                      store.dispatch(addPostCreator())   
-//                   }
-//                   let onPostChange = (body) => {
-//                      store.dispatch(updateNewPostTextCreator(body))
-                     
-//                   }
-
-//                   let state = store.getState()
-                  
-//                   return   <MyPosts addNewPost={addPost}
-//                               updateNewPost={onPostChange}
-//                               newPostText={state.profilePage.newPostText}
-//                               posts={state.profilePage.posts}/>
-//                }}
-//          </StoreContext.Consumer>
-//       )
-//    }
 export default MyPostsContainer;

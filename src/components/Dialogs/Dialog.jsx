@@ -21,27 +21,26 @@ let updateDialogText = (e) => {
     props.updateDialogTextBody(body)
     }
 
-
-    return (    
-        <div className={s.chat}>
-           <div className={s.chatItems}>
-                { dialogsElems }
-           </div>      
-            <div className={s.messages}>
-                { messagesElems }
-                <label>
-                    <textarea className={s.inputText} 
-                            value={ props.dialogText }
-                            type='text'
-                            onChange={ updateDialogText  }> 
-                    </textarea>
-                    <button 
-                        onClick={ sendMessageClick }>Send
-                    </button>
-                </label>
-            </div>  
-        </div>
-    )
-}
+        return (    
+            <div className={s.chat}>
+            <div className={s.chatItems}>
+                    { dialogsElems }
+            </div>      
+                <div className={s.messages}>
+                    { messagesElems }
+                    <label>
+                        <textarea className={s.inputText} 
+                                value={ props.dialogText }
+                                type='text'
+                                onChange={ updateDialogText  }> 
+                        </textarea>
+                        <button 
+                            onClick={ sendMessageClick }>Send
+                        </button>
+                    </label>
+                </div>  
+            </div>
+        )
+    }
 
 export default Dialogs;

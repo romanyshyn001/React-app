@@ -1,4 +1,5 @@
 import { usersAPI } from "../components/api/api"
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -10,34 +11,33 @@ const TOOGLE_IS_FOLLOWING_PROGRESS = 'TOOGLE_IS_FOLLOWING_PROGRESS'
 
 const initiateState = {
     users: [],
-    pageSize: 5,
-    totalUsersCount: 50,
+    pageSize: 15,
+    totalUsersCount: 250,
     currentPage:1,
     isFetching: true,
     followingInProgress: []
 }
 
 const usersReducers = (state = initiateState, action) => {
-    //debugger
     switch(action.type){
-        // case FOLLOW:
-        //     return {
-        //         ...state, 
-        //         users: state.users.map(u => {
-        //             if(u.id === action.userId){
-        //                 return {...u, followed: true}
-        //             }
-        //             return u
-        //         })}
-        // case UNFOLLOW: 
-        //     return {
-        //         ...state, 
-        //         users: state.users.map(u => {
-        //             if(u.id === action.userId){
-        //                 return {...u, followed: false}
-        //             }
-        //             return u
-        //         })}
+        case FOLLOW:
+            return {
+                ...state, 
+                users: state.users.map(u => {
+                    if(u.id === action.userId){
+                        return {...u, followed: true}
+                    }
+                    return u
+                })}
+        case UNFOLLOW: 
+            return {
+                ...state, 
+                users: state.users.map(u => {
+                    if(u.id === action.userId){
+                        return {...u, followed: false}
+                    }
+                    return u
+                })}
         case SET_USERS:{
             return {...state, users: action.users}
         }
@@ -51,7 +51,6 @@ const usersReducers = (state = initiateState, action) => {
             return {...state, isFetching: action.isFetching}
         }
         case TOOGLE_IS_FOLLOWING_PROGRESS:{
-            //debugger;
             return {...state, 
                 followingInProgress: action.isFetching 
                 ? [...state.followingInProgress,  action.userId] 
@@ -78,39 +77,31 @@ export const getUsers = (currentPage, pageSize) => {
     dispatch(toggleIsFetching(true))
 
       usersAPI.getUsers(currentPage, pageSize).then(data => {
-            //debugger;
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
         })
     }
 }
-export const follow = (userId) => { 
+export const follow = (userId) => {
     return (dispatch) => {
+        dispatch(toogleFollowingProgress(true, userId))
 
-    dispatch(toogleFollowingProgress(true, userId))
-
-      usersAPI.follow(userId).then(data => {
-           if(data.resultCode === 0) {
-               dispatch(followSuccess(userId))
-           }
-            dispatch(toogleFollowingProgress(false, userId))
-        })
+        usersAPI.follow(userId)
+            dispatch(followSuccess(userId))
+                dispatch(toogleFollowingProgress(false, userId))
+        
     }
 }
-
 export const unfollow = (userId) => { 
     
     return (dispatch) => {
         dispatch(toogleFollowingProgress(true, userId))
         
         usersAPI.unfollow(userId)
-            .then(data => {
-                if(data.resultCode === 0 ) {
-                    dispatch(unfollowSuccess(userId))
-                }
+            dispatch(unfollowSuccess(userId))
                 dispatch(toogleFollowingProgress(false, userId))
-            })
+            
     }
 }
 export default usersReducers;
