@@ -3,10 +3,10 @@ import MyPostsContainer from './Myposts/MyPostsContainer'
 import React from 'react';
 
 const Profile = (props) => {
-
    return (
       <div >
-         <ProfileInfo profile={props.profile}/>
+         <ProfileInfo profile={props.profile} {...props}/> 
+         {/* status={props.status} updateStatus={props.updateStatus} */}
          <MyPostsContainer  />
       </div>
    )
