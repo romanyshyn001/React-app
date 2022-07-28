@@ -19,9 +19,14 @@
   padding-left: 70px;
   padding-top: 10px;
 }
-
-.inputText{
-  margin-top:10px
+textarea{
+  resize: none;
+  height: 40px;
+  width: 250px;
+  margin: 20px 0 0 0;
+}
+.dialogPost {
+  color: red;
 }
 
 

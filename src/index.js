@@ -18,6 +18,4 @@ const root =  ReactDOM.createRoot(
     </BrowserRouter>
  );
 
-
-
 reportWebVitals();

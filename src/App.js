@@ -6,7 +6,7 @@ import React from 'react';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/profile/Myposts/ProfileInfo/ProfileContainer';
 import HeaderContainer from './components/header/HeaderContainer';
-import LoginPage from './components/Login/login';
+import LoginContainer from './components/Login/LoginContainer';
 
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
              <Route path='/profile/' element={<ProfileContainer/>} /> 
              <Route path='/profile/:userId' element={<ProfileContainer />} />
              <Route path='/users'element={<UsersContainer/>} /> 
-             <Route path='/login'element={<LoginPage/>} /> 
+             <Route path='/login'element={<LoginContainer/>} /> 
           </Routes>
         </div>
         </div>

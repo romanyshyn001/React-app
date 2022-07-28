@@ -14,9 +14,9 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {        
-        sendMessageByClick: () => {
-            dispatch(addDialogTextCreator())
-        },
+        // sendMessageByClick: () => {
+        //     dispatch(addDialogTextCreator())
+        // },
         updateDialogTextBody: (body) => {
             dispatch(updateDialogTextCreator(body))
         }

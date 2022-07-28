@@ -1,11 +1,15 @@
 import { authAPI } from "../components/api/api"
+
 const SET_USER_DATA = 'SET-USER-DATA'
+
 
 let initialState = {
   userId: null,
   email: null,
   login: null,
-  isAuth: false
+  isAuth: false,
+  messageAPI: [],
+  rememberMe: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -23,7 +27,8 @@ const authReducer = (state = initialState, action) => {
 
 
 
-export const setAuthUserData = (userId, email, login) => ({type:SET_USER_DATA, data: {userId, email, login}})
+export const setAuthUserData = (userId, email, login, isAuth, messageAPI) => ({
+  type:SET_USER_DATA, data: {userId, email, login, isAuth, messageAPI}})
 export const getAuthUserData = () => (dispatch) => {
   authAPI.me()
       .then(response => {
@@ -32,6 +37,23 @@ export const getAuthUserData = () => (dispatch) => {
           dispatch(setAuthUserData(id, email, login))
         }
       })
+}
+
+export const login = (values) => {
+  let email = values.email
+  let password = values.password
+  let rememberMe = values.rememberMe
+    return(dispatch) => {
+      //debugger
+      authAPI.login(email, password, rememberMe)
+        .then(data => {
+      if(data.resultCode === 0){
+        dispatch(getAuthUserData())
+      } else {
+        dispatch(setAuthUserData(null, null, null, false, ''))
+      }
+    }
+  )}
 }
 export default authReducer
 
