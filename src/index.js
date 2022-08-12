@@ -1,4 +1,3 @@
-import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -18,4 +17,3 @@ const root =  ReactDOM.createRoot(
     </BrowserRouter>
  );
 
-reportWebVitals();

@@ -1,12 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
-import { authAPI } from "../api/api";
 import s from './login.module.css'
 
 const LoginForms = (props) => {
  
-   authAPI.login()
+
 
    const formik = useFormik({
       initialValues: {
@@ -23,7 +22,8 @@ const LoginForms = (props) => {
             .required('*Required')
       }),
       onSubmit: (values) => {
-          props.login(values)
+         // console.log(' props.login',  props)
+         props.login(values)
       }
    })
 

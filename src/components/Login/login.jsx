@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import LoginForms from "./LoginForm";
 
-export  class Login extends React.Component {
+export class Login extends React.Component {
   
   render(){
     if(this.props.isAuth){
