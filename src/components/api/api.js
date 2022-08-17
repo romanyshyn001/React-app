@@ -53,11 +53,10 @@ export const profileAPI = {
 
 export const authAPI = {
    async me(){
-      return await instance.get(`auth/me`) //.then(res=> {console.log('res=>', res)})
+      return await instance.get(`auth/me`) 
   },
    async login(values){
-      console.log('api',values)
-         return await instance.post(`auth/login`, values)
+      return await instance.post(`auth/login`, values)
   },
    async logout(){
       return await instance.delete(`auth/login`).then(res => { return res.data})

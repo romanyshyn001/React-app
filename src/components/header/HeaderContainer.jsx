@@ -1,38 +1,20 @@
 import React from "react";
-import Header from './Header'
+import Header from "./Header";
 import { connect } from "react-redux";
-import { getAuthUserData, logout } from '../../redux/auth-reducer'
+import { logout } from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component {
-
-    componentDidMount(){
-      this.props.getAuthUserData()
-      console.log(this.props)
-    }
-  render(){
-    return <Header {...this.props}/>
+  render() {
+    return <Header {...this.props} />;
   }
 }
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
-  login: state.auth.login
-})
+  login: state.auth.login,
+});
 
-export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContainer)
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default connect(mapStateToProps, { logout })(HeaderContainer);
 
 // import React from 'react';
 // import Header from './Header';
@@ -41,10 +23,10 @@ export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContain
 // import { connect } from 'react-redux';
 
 // class HeaderContainer extends React.Component {
-  
+
 //   componentDidMount(){
 //  //  debugger;
-//     axios.get(`https://social-network.samuraijs.com/api/1.0/users/auth/me`, { withCredentials: true  
+//     axios.get(`https://social-network.samuraijs.com/api/1.0/users/auth/me`, { withCredentials: true
 //       })
 //           .then(response => {
 //             debugger;
@@ -54,8 +36,7 @@ export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContain
 //             }
 //           })
 //   }
-  
-  
+
 //   render(){
 //    debugger
 //     return(
@@ -68,6 +49,5 @@ export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContain
 //   isAuth: state.auth.isAuth,
 //   login: state.auth.login
 // })
-
 
 // export default connect (mapStateToProps, {setAuthUserData})(HeaderContainer);

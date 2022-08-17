@@ -21,9 +21,9 @@ const LoginForms = (props) => {
             .email('Invalid Email')
             .required('*Required')
       }),
-      onSubmit: (values) => {
-         // console.log(' props.login',  props)
-         props.login(values)
+      onSubmit: (values, {setSubmitting, setStatus}) => {
+         props.login(values, setStatus)
+         setSubmitting(false);
       }
    })
 
@@ -39,6 +39,7 @@ const LoginForms = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.email}
          />
+         
          {  formik.touched.email && formik.errors.email 
          ? ( <div className={s.email}>{formik.errors.email}</div> )
          : null
@@ -59,6 +60,7 @@ const LoginForms = (props) => {
          : null
          } 
       </div>
+      <div>{formik.status}</div>
       <label htmlFor="rememberMe">RememberMe</label>
       <div>
         <input
