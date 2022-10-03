@@ -3,6 +3,8 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_STATUS = 'SET_STATUS'
+const DELETE_POST = ': DELETE_POST'
+
 
 let initiateState = {
     posts:[
@@ -19,21 +21,8 @@ let initiateState = {
 
 const profileReducer = (state = initiateState, action) => {
     switch(action.type){
-        // case ADD_POST:{
-        //     let newPost = {
-        //         id:6,
-        //         message: state.newPostText,
-        //         likesCount:1
-        //     }
-        //     let stateCopy = {...state}
-        //     stateCopy.posts = [...state.posts]
-        //     stateCopy.posts.push(newPost)
-        //     stateCopy.newPostText = ''
-        //         return stateCopy
-        // }
+
         case UPDATE_NEW_POST_TEXT:{ 
-            // let stateCopy = {...state}
-            // stateCopy.newPostText = action.updatedNewText
                 return {...state, posts: [...state.posts, 
                 {id:8, message: action.newPostText, likesCount:1}
                 ]}
@@ -44,6 +33,9 @@ const profileReducer = (state = initiateState, action) => {
         case SET_STATUS: {
             return {...state, status: action.status}
         }
+        case DELETE_POST: {
+            return {...state, posts: state.posts.filter(p => p.id != action.postId)}
+        }
         default: 
                 return state
         }
@@ -53,6 +45,7 @@ export const setStatus = (status) => ({type: SET_STATUS, status})
 export const addPostCreator = () => ({type: ADD_POST})
 export const updateNewPostTextCreator = (newPostText) => ({type: UPDATE_NEW_POST_TEXT, newPostText})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+export const deletePost = (postId) => ({type: DELETE_POST, postId})
 
 export const getUserProfile = (userId) => (dispatch) => {
     usersAPI.getProfile(userId)

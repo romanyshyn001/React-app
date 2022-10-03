@@ -20,19 +20,19 @@ export const  usersAPI = {
 },
    unfollow: async(userId ) => {  
       return await instance.delete(`follow/${userId}`)
-         .then(response => {
-            if(response.data.resultCode === 0){
-               unfollow(userId)
-            }
-         })
+         // .then(response => {
+         //    if(response.data.resultCode === 0){
+         //       unfollow(userId)
+         //    }
+         // })
 },
    follow: async(userId) => {
       return await instance.post(`follow/${userId}`)
-         .then(response => {
-            if(response.data.resultCode === 0){
-               follow(userId)
-            }
-         })
+         // .then(response => {
+         //    if(response.data.resultCode === 0){
+         //       follow(userId)
+         //    }
+         // })
 },
    getProfile: async(userId) => {
       return await profileAPI.getProfile(userId)
