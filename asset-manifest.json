@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/romanyshyn001/React-app/static/css/main.be3206cf.css",
+    "main.js": "/romanyshyn001/React-app/static/js/main.e5db3c8d.js",
+    "static/css/629.4504d143.chunk.css": "/romanyshyn001/React-app/static/css/629.4504d143.chunk.css",
+    "static/js/629.c933aec9.chunk.js": "/romanyshyn001/React-app/static/js/629.c933aec9.chunk.js",
+    "static/css/519.a823e8f9.chunk.css": "/romanyshyn001/React-app/static/css/519.a823e8f9.chunk.css",
+    "static/js/519.08fbda32.chunk.js": "/romanyshyn001/React-app/static/js/519.08fbda32.chunk.js",
+    "static/media/userPhoto.png": "/romanyshyn001/React-app/static/media/userPhoto.20ae3a5fc0daa4ae8dd2.png",
+    "static/media/ava.png": "/romanyshyn001/React-app/static/media/ava.a5c83cb464c2fd133222.png",
+    "static/media/avaMessage.png": "/romanyshyn001/React-app/static/media/avaMessage.a5c83cb464c2fd133222.png",
+    "static/media/preloader.gif": "/romanyshyn001/React-app/static/media/preloader.64161c2205ff923a587d.gif",
+    "index.html": "/romanyshyn001/React-app/index.html",
+    "main.be3206cf.css.map": "/romanyshyn001/React-app/static/css/main.be3206cf.css.map",
+    "main.e5db3c8d.js.map": "/romanyshyn001/React-app/static/js/main.e5db3c8d.js.map",
+    "629.4504d143.chunk.css.map": "/romanyshyn001/React-app/static/css/629.4504d143.chunk.css.map",
+    "629.c933aec9.chunk.js.map": "/romanyshyn001/React-app/static/js/629.c933aec9.chunk.js.map",
+    "519.a823e8f9.chunk.css.map": "/romanyshyn001/React-app/static/css/519.a823e8f9.chunk.css.map",
+    "519.08fbda32.chunk.js.map": "/romanyshyn001/React-app/static/js/519.08fbda32.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be3206cf.css",
+    "static/js/main.e5db3c8d.js"
+  ]
+}
