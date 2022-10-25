@@ -6,7 +6,8 @@ export const createField = (
   type,
   handleChange,
   handleBlur,
-  emailValue
+  paramValue,
+  placeholder
 ) => {
   return (
     <div>
@@ -16,7 +17,8 @@ export const createField = (
         type={type}
         onChange={handleChange}
         onBlur={handleBlur}
-        value={emailValue}
+        value={paramValue}
+        placeholder={placeholder}
       />
     </div>
   );

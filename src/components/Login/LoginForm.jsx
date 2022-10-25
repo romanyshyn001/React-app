@@ -4,22 +4,23 @@ import * as Yup from "yup";
 import s from "./login.module.css";
 import { createField } from "../common/FormsControls/FormsControl";
 
-const LoginForms = ({ login }) => {
+const LoginForms = ({ login, captchaUrl }) => {
+  console.log(captchaUrl);
   const formik = useFormik({
     initialValues: {
       password: "",
       email: "",
       rememberMe: false,
+      captcha: ""
     },
     validationSchema: Yup.object({
       password: Yup.string()
         .max(20, "Must be at least 20 char")
         .required("Required"),
-      email: Yup.string()
-        .email("Invalid Email")
-        .required("*Required"),
+      email: Yup.string().email("Invalid Email").required("*Required"),
     }),
     onSubmit: (values, { setSubmitting, setStatus }) => {
+      console.log(values)
       login(values, setStatus);
       setSubmitting(false);
     },
@@ -61,6 +62,15 @@ const LoginForms = ({ login }) => {
         formik.handleChange,
         formik.handleBlur,
         formik.values.rememberMe
+      )}
+      {captchaUrl && <img src={captchaUrl} alt={"captcha"} />}
+      {captchaUrl && createField(
+        "symbolFromImg",
+        "captcha",
+        "",
+        formik.handleChange,
+        formik.handleBlur,
+        formik.values.captcha
       )}
       <button type="submit">Login</button>
     </form>

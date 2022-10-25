@@ -38,6 +38,18 @@ export const profileAPI = {
   updateStatus: async (status) => {
     return await instance.put(`profile/status`, { status: status });
   },
+  savePhoto: async (photoFile) => {
+    const formData = new FormData();
+    formData.append("image", photoFile);
+    return instance.put("profile/photo", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  saveProfile: async (profile) => {
+    return await instance.put(`profile`, profile);
+  },
 };
 
 export const authAPI = {
@@ -51,5 +63,10 @@ export const authAPI = {
     return await instance.delete(`auth/login`).then((res) => {
       return res.data;
     });
+  },
+};
+export const securityApi = {
+  async getCaptchaUrl() {
+    return await instance.get(`security/get-captcha-url`);
   },
 };

@@ -1,12 +1,13 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { login } from './../../redux/auth-reducer'
+import { login } from '../../redux/auth-reducer'
 import { Login } from "./Login";
 
 
 
 let mapStateToProps = (state) => {
   return {
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
     messageAPI: state.auth.messageAPI,
   };

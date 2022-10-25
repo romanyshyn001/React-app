@@ -23,6 +23,7 @@ const ProfileStatusWithHooks = (props) => {
     <div>
       {!editMode && (
         <div>
+          <b>Status:</b>
           <span onDoubleClick={activeMode}>{props.status || "-----"}</span>
         </div>
       )}
