@@ -1,3 +1,5 @@
+import { AppStateType } from "./redux-store";
+import { ThunkAction } from "redux-thunk";
 import { authAPI, securityApi } from "../components/api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET-USER-DATA";
@@ -18,7 +20,14 @@ let initialState: initialStateType = {
   captchaUrl: null,
 };
 
-const authReducer = (state = initialState, action: any): initialStateType => {
+type ActionAuthType =
+  | SetAuthUserDataActionType
+  | GetCaptchaUrlSuccessActionType;
+
+const authReducer = (
+  state = initialState,
+  action: ActionAuthType
+): initialStateType => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -34,38 +43,47 @@ const authReducer = (state = initialState, action: any): initialStateType => {
       return state;
   }
 };
+
 type setAuthUserDataActionPayloadType = {
   userId: number | null;
   email: string | null;
   login: string | null;
-  isAuth: boolean ;
+  isAuth: boolean;
 };
-type setAuthUserDataActionType = {
+type SetAuthUserDataActionType = {
   type: typeof SET_USER_DATA;
   payload: setAuthUserDataActionPayloadType;
 };
+
 export const setAuthUserData = (
   userId: number | null,
   email: string | null,
   login: string | null,
   isAuth: boolean
-): setAuthUserDataActionType => ({
+): SetAuthUserDataActionType => ({
   type: SET_USER_DATA,
   payload: { userId, email, login, isAuth },
 });
 
-type getCaptchaUrlSuccessActionType = {
+type GetCaptchaUrlSuccessActionType = {
   type: typeof GET_CAPTCH_URL_SUCCESS;
   payload: { captchaUrl: string };
 };
 export const getCaptchaUrlSuccess = (
   captchaUrl: string
-): getCaptchaUrlSuccessActionType => ({
+): GetCaptchaUrlSuccessActionType => ({
   type: GET_CAPTCH_URL_SUCCESS,
   payload: { captchaUrl },
 });
 
-export const getAuthUserData = () => async (dispatch: any) => {
+type ThunkAuthType = ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionAuthType
+>;
+
+export const getAuthUserData = (): ThunkAuthType => async (dispatch) => {
   let responce = await authAPI.me();
   if (responce.data.resultCode === 0) {
     let { id, login, email } = responce.data.data;
@@ -73,25 +91,26 @@ export const getAuthUserData = () => async (dispatch: any) => {
   }
 };
 
-export const login =
-  (values: string, setStatus: any) => async (dispatch: any) => {
-    let responce = await authAPI.login(values);
-    if (responce.data.resultCode === 0) {
-      dispatch(getAuthUserData());
-    } else {
-      if (responce.data.resultCode === 10) {
-        dispatch(getCaptchaUrl());
-      }
-      setStatus(responce.data.messages);
+export const login = (values: string, setStatus: any): ThunkAuthType => async (
+  dispatch
+) => {
+  let responce = await authAPI.login(values);
+  if (responce.data.resultCode === 0) {
+    dispatch(getAuthUserData());
+  } else {
+    if (responce.data.resultCode === 10) {
+      dispatch(getCaptchaUrl());
     }
-  };
-export const logout = () => async (dispatch: any) => {
+    setStatus(responce.data.messages);
+  }
+};
+export const logout = (): ThunkAuthType => async (dispatch) => {
   let responce = await authAPI.logout();
   if (responce.resultCode === 0) {
     dispatch(setAuthUserData(null, null, null, false));
   }
 };
-export const getCaptchaUrl = () => async (dispatch: any) => {
+export const getCaptchaUrl = (): ThunkAuthType => async (dispatch) => {
   let responce = await securityApi.getCaptchaUrl();
   const captchaUrl = responce.data.url;
   dispatch(getCaptchaUrlSuccess(captchaUrl));

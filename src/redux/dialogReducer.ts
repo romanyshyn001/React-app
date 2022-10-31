@@ -27,7 +27,10 @@ let initialState = {
 };
 export type InitialStateType = typeof initialState;
 
-const dialogReducer = (state = initialState, action: any) => {
+const dialogReducer = (
+  state = initialState,
+  action: SendMessageCreatorActionType
+) => {
   switch (action.type) {
     case SEND_NEW_DIALOG_TEXT:
       return {
@@ -42,13 +45,13 @@ const dialogReducer = (state = initialState, action: any) => {
   }
 };
 
-type sendMessageCreatorActionType = {
+type SendMessageCreatorActionType = {
   type: typeof SEND_NEW_DIALOG_TEXT;
   newDialogPost: string;
 };
 export const updateDialogTextCreator = (
   newDialogPost: string
-): sendMessageCreatorActionType => ({
+): SendMessageCreatorActionType => ({
   type: SEND_NEW_DIALOG_TEXT,
   newDialogPost,
 });

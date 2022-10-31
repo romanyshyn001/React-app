@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { login } from '../../redux/auth-reducer'
-import { Login } from "./Login";
+import { Login } from "./login";
 
 
 

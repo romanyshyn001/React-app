@@ -1,6 +1,9 @@
 import { usersAPI } from "../components/api/api";
 import { updateObjectArray } from "../components/utils/object.helper";
 import { UsersType } from "../types/types";
+import { AppStateType } from "./redux-store";
+import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -21,9 +24,18 @@ const initiateState = {
 
 type InitialStateType = typeof initiateState;
 
+type ActionsTypes =
+  | FollowSuccessType
+  | UnfollowSuccessType
+  | SetUsersType
+  | SetCurrentPageType
+  | ToggleIsFetchingType
+  | ToogleFollowingProgressType
+  | SetTotalUsersCountType;
+
 const usersReducers = (
   state = initiateState,
-  action: any
+  action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
     case FOLLOW:
@@ -127,33 +139,47 @@ export const toogleFollowingProgress = (
   userId,
 });
 
-export const requestUsers = (page: number, pageSize: number) => {
-  return async (dispatch: any) => {
-    dispatch(toggleIsFetching(true));
+type ThunkType = ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionsTypes
+>;
 
+type DispatchType = Dispatch<ActionsTypes> 
+
+export const requestUsers = (
+  page: number,
+  pageSize: number
+): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => {
+  return async (dispatch, getState) => {
+    // let a = getState();
+    dispatch(toggleIsFetching(true));
     let data = await usersAPI.getUsers(page, pageSize);
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));
   };
 };
-const followUnfollowFlow = async (
-  dispatch: any,
-  userId: any,
+// Внутрішня функція
+const _followUnfollowFlow = async (
+  dispatch: DispatchType,
+  userId: number,
   apiMethod: any,
-  actionCreator: any
+  actionCreator: (userId: number) => FollowSuccessType | UnfollowSuccessType
 ) => {
   dispatch(toogleFollowingProgress(true, userId));
-
   let responce = await apiMethod(userId);
   if (responce.data.resultCode === 0) {
     dispatch(actionCreator(userId));
   }
   dispatch(toogleFollowingProgress(false, userId));
 };
-export const follow = async (userId: number) => {
-  return (dispatch: any) => {
-    followUnfollowFlow(
+
+
+export const follow = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    _followUnfollowFlow(
       dispatch,
       userId,
       usersAPI.follow.bind(usersAPI),
@@ -161,9 +187,9 @@ export const follow = async (userId: number) => {
     );
   };
 };
-export const unfollow = (userId: number) => {
-  return (dispatch: any) => {
-    followUnfollowFlow(
+export const unfollow = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    _followUnfollowFlow(
       dispatch,
       userId,
       usersAPI.unfollow.bind(usersAPI),

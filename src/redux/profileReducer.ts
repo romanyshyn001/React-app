@@ -1,5 +1,7 @@
+import { ThunkAction } from "redux-thunk";
 import { profileAPI, usersAPI } from "../components/api/api";
 import { PhotosType, PostType, ProfileType } from "../types/types";
+import { AppStateType } from "./redux-store";
 
 // const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -7,8 +9,6 @@ const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
-
-
 
 let initiateState = {
   posts: [
@@ -25,7 +25,14 @@ let initiateState = {
 
 export type initiateStateType = typeof initiateState;
 
-const profileReducer = (state = initiateState, action: any) => {
+type ActionProfileType =
+  | UpdateNewPostTextCreatorType
+  | SetUserProfileType
+  | SetStatusType
+  | DeletePostType
+  | SavePhotoSuccess;
+
+const profileReducer = (state = initiateState, action: ActionProfileType) => {
   switch (action.type) {
     case UPDATE_NEW_POST_TEXT: {
       return {
@@ -106,38 +113,49 @@ export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccess => ({
   photos,
 });
 
-// export const addPostCreator = () => ({ type: ADD_POST });
-export const getUserProfile = (userId: number) => (dispatch: any) => {
+type ThunkProfileType = ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionProfileType
+>;
+export const getUserProfile = (userId: number): ThunkProfileType => async (
+  dispatch
+) => {
   usersAPI.getProfile(userId).then((response) => {
     dispatch(setUserProfile(response.data));
   });
 };
-export const getStatus = (userId: number) => (dispatch: any) => {
+export const getStatus = (userId: number): ThunkProfileType => async (
+  dispatch
+) => {
   profileAPI.getStatus(userId).then((response) => {
     dispatch(setStatus(response.data));
   });
 };
-export const updateStatus = (status: string) => (dispatch: any) => {
+export const updateStatus = (status: string):ThunkProfileType => async(dispatch) => {
   profileAPI.updateStatus(status).then((response) => {
     if (response.data.resultCode === 0) {
       dispatch(setStatus(status));
     }
   });
 };
-export const savePhoto = (file: any) => (dispatch: any) => {
+export const savePhoto = (file: any):ThunkProfileType => async(dispatch) => {
   profileAPI.savePhoto(file).then((responce) => {
     if (responce.data.resultCode === 0) {
       dispatch(savePhotoSuccess(responce.data.data.photos));
     }
   });
 };
-export const saveProfile =
-  (profile: ProfileType) => (dispatch: any, getState: any) => {
-    const userId = getState().auth.userId;
-    profileAPI.saveProfile(profile).then((responce) => {
-      if (responce.data.resultCode === 0) {
-        dispatch(getUserProfile(userId));
-      }
-    });
-  };
+export const saveProfile = (profile: ProfileType):ThunkProfileType => async(
+  dispatch,
+  getState: any
+) => {
+  const userId = getState().auth.userId;
+  profileAPI.saveProfile(profile).then((responce) => {
+    if (responce.data.resultCode === 0) {
+      dispatch(getUserProfile(userId));
+    }
+  });
+};
 export default profileReducer;
