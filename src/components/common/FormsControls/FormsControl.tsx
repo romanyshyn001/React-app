@@ -1,13 +1,13 @@
 import React from "react";
 
 export const createField = (
-  id,
-  name,
-  type,
-  handleChange,
-  handleBlur,
-  paramValue,
-  placeholder
+  id: any,
+  name: string,
+  type: string,
+  handleChange: any,
+  handleBlur: any,
+  paramValue: any,
+  // placeholder: string
 ) => {
   return (
     <div>
@@ -18,7 +18,7 @@ export const createField = (
         onChange={handleChange}
         onBlur={handleBlur}
         value={paramValue}
-        placeholder={placeholder}
+        // placeholder={placeholder}
       />
     </div>
   );

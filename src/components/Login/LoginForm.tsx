@@ -4,8 +4,15 @@ import * as Yup from "yup";
 import s from "./login.module.css";
 import { createField } from "../common/FormsControls/FormsControl";
 
-const LoginForms = ({ login, captchaUrl }) => {
-  console.log(captchaUrl);
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { AppStateType } from "../../redux/redux-store";
+import { Navigate } from "react-router-dom";
+import { login } from '../../redux/auth-reducer'
+
+const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth, captchaUrl }) => {
+  // debugger
+  // console.log('isAuth', isAuth);
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -25,7 +32,9 @@ const LoginForms = ({ login, captchaUrl }) => {
       setSubmitting(false);
     },
   });
-
+  if (isAuth) {
+    return <Navigate to={"/profile"} />;
+  }
   return (
     <form onSubmit={formik.handleSubmit}>
       <label htmlFor="email">Email address</label>
@@ -76,4 +85,28 @@ const LoginForms = ({ login, captchaUrl }) => {
     </form>
   );
 };
-export default LoginForms;
+type MapStatePropsType = {
+  captchaUrl: string | null
+  isAuth: boolean,
+  // messageAPI: String,
+}
+type MapDispatchPropsType = {
+  login: (
+    captcha: string | null,
+    email: string,
+    password: string,
+    rememberMe: boolean,
+  ) => void
+}
+
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
+  return {
+    captchaUrl: state.auth.captchaUrl,
+    isAuth: state.auth.isAuth,
+    // messageAPI: state.auth.messageAPI,
+  };
+};
+export default compose(connect(mapStateToProps, { login }))(LoginForms)
+
+
+// export default LoginForms;

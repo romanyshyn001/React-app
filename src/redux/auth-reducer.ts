@@ -1,6 +1,6 @@
 import { AppStateType } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
-import { authAPI, securityApi } from "../components/api/api";
+import { authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityApi } from "../components/api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET-USER-DATA";
 const GET_CAPTCH_URL_SUCCESS = "samurai-network/auth/GET_CAPTCH_URL_SUCCESS";
@@ -84,24 +84,25 @@ type ThunkAuthType = ThunkAction<
 >;
 
 export const getAuthUserData = (): ThunkAuthType => async (dispatch) => {
-  let responce = await authAPI.me();
-  if (responce.data.resultCode === 0) {
-    let { id, login, email } = responce.data.data;
+  let meData = await authAPI.me();
+  if (meData.resultCode === ResultCodesEnum.Success) {
+    let { id, login, email } = meData.data;
     dispatch(setAuthUserData(id, email, login, true));
   }
 };
 
-export const login = (values: string, setStatus: any): ThunkAuthType => async (
+export const login = (values: any, setStatus: any): ThunkAuthType => async (
   dispatch
 ) => {
-  let responce = await authAPI.login(values);
-  if (responce.data.resultCode === 0) {
+  console.log('loginData',values)
+  let loginData = await authAPI.login(values);
+  if (loginData.resultCode === ResultCodesEnum.Success) {
     dispatch(getAuthUserData());
   } else {
-    if (responce.data.resultCode === 10) {
+    if (loginData.resultCode === ResultCodeForCaptcha.captchaIsRequired) {
       dispatch(getCaptchaUrl());
     }
-    setStatus(responce.data.messages);
+    setStatus(loginData.messages);
   }
 };
 export const logout = (): ThunkAuthType => async (dispatch) => {

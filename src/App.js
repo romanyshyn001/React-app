@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import React, {  Suspense } from "react";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
-import LoginContainer from "./components/Login/LoginContainer";
+// import LoginContainer from "./components/Login/LoginContainer";
 import { Component } from "react";
 import { connect } from "react-redux";
 import Preloader from "./components/Preloader/Preloader";
@@ -12,6 +12,7 @@ import { initializedApp } from "./redux/app-reducer";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/redux-store";
+import LoginForm from "./components/Login/LoginForm";
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/dialogContainer")
@@ -53,7 +54,7 @@ class App extends Component {
               <Route path="/profile/" element={<ProfileContainer />} />
               <Route path="/profile/:userId" element={<ProfileContainer />} />
               <Route path="/users" element={<UsersContainer pageTitle={"SAMURAI"}/>} />
-              <Route path="/login" element={<LoginContainer />} />
+              <Route path="/login" element={<LoginForm />} />
               <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
           </Suspense>
