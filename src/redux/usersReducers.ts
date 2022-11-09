@@ -36,38 +36,38 @@ type InitialStateType = typeof initiateState;
 export const actions = {
   followSuccess: (userId: number) =>
     ({
-      type: InferLiteralFromString("FOLLOW"),
+      type: InferLiteralFromString("SN/USERS/FOLLOW"),
       userId,
     } as const),
 
   unfollowSuccess: (userId: number) =>
     ({
-      type: InferLiteralFromString("UNFOLLOW"),
+      type: InferLiteralFromString("SN/USERS/UNFOLLOW"),
       userId,
     } as const),
   setUsers: (users: Array<UsersType>) =>
     ({
-      type: InferLiteralFromString("SET_USERS"),
+      type: InferLiteralFromString("SN/USERS/SET_USERS"),
       users,
     } as const),
   setCurrentPage: (currentPage: number) =>
     ({
-      type: InferLiteralFromString("SET_CURRENT_PAGE"),
+      type: InferLiteralFromString("SN/USERS/SET_CURRENT_PAGE"),
       currentPage,
     } as const),
 
   setTotalUsersCount: (count: number) =>
     ({
-      type: InferLiteralFromString("SET_USER_TOTAL_COUNT"),
+      type: InferLiteralFromString("SN/USERS/SET_USER_TOTAL_COUNT"),
       count,
     } as const),
   toggleIsFetching: (isFetching: boolean) => ({
-    type: InferLiteralFromString("TOGGLE_IS_FETCHING"),
+    type: InferLiteralFromString("SN/USERS/TOGGLE_IS_FETCHING"),
     isFetching,
   }),
   toogleFollowingProgress: (isFetching: boolean, userId: number) =>
     ({
-      type: InferLiteralFromString("TOOGLE_IS_FOLLOWING_PROGRESS"),
+      type: InferLiteralFromString("SN/USERS/TOOGLE_IS_FOLLOWING_PROGRESS"),
       isFetching,
       userId,
     } as const),
@@ -78,30 +78,30 @@ const usersReducers = (
   action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case "FOLLOW":
+    case "SN/USERS/FOLLOW":
       return {
         ...state,
         users: updateObjectArray(state.users, action.userId, "id", {
           followed: true,
         }),
       };
-    case "UNFOLLOW":
+    case "SN/USERS/UNFOLLOW":
       return {
         ...state,
         users: updateObjectArray(state.users, action.userId, "id", {
           followed: false,
         }),
       };
-    case "SET_USERS": {
+    case "SN/USERS/SET_USERS": {
       return { ...state, users: action.users };
     }
-    case "SET_CURRENT_PAGE": {
+    case "SN/USERS/SET_CURRENT_PAGE": {
       return { ...state, currentPage: action.currentPage };
     }
-    case "TOGGLE_IS_FETCHING": {
+    case "SN/USERS/TOGGLE_IS_FETCHING": {
       return { ...state, isFetching: action.isFetching };
     }
-    case "TOOGLE_IS_FOLLOWING_PROGRESS": {
+    case "SN/USERS/TOOGLE_IS_FOLLOWING_PROGRESS": {
       return {
         ...state,
         followingInProgress: action.isFetching

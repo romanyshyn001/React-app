@@ -1,13 +1,5 @@
-const SEND_NEW_DIALOG_TEXT = "SEND-NEW-DIALOG-TEXT";
+import { InferActionType } from "./redux-store";
 
-type DialogType = {
-  id: number;
-  name: string;
-};
-type MessageType = {
-  id: number;
-  message: string;
-};
 let initialState = {
   dialogsData: [
     { id: 1, name: "Roman" },
@@ -25,14 +17,17 @@ let initialState = {
   ] as Array<MessageType>,
   // newDialogPost: ''
 };
-export type InitialStateType = typeof initialState;
 
-const dialogReducer = (
-  state = initialState,
-  action: SendMessageCreatorActionType
-) => {
+export const actions = {
+  updateDialogTextCreator: (newDialogPost: string) => ({
+    type: "SN/SEND-NEW-DIALOG-TEXT",
+    newDialogPost,
+  }),
+};
+
+const dialogReducer = (state = initialState, action: ActionsType) => {
   switch (action.type) {
-    case SEND_NEW_DIALOG_TEXT:
+    case "SN/SEND-NEW-DIALOG-TEXT":
       return {
         ...state,
         messageData: [
@@ -45,15 +40,14 @@ const dialogReducer = (
   }
 };
 
-type SendMessageCreatorActionType = {
-  type: typeof SEND_NEW_DIALOG_TEXT;
-  newDialogPost: string;
+type DialogType = {
+  id: number;
+  name: string;
 };
-export const updateDialogTextCreator = (
-  newDialogPost: string
-): SendMessageCreatorActionType => ({
-  type: SEND_NEW_DIALOG_TEXT,
-  newDialogPost,
-});
-
+type MessageType = {
+  id: number;
+  message: string;
+};
+export type InitialStateType = typeof initialState;
+type ActionsType = InferActionType<typeof actions>;
 export default dialogReducer;

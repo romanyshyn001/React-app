@@ -8,9 +8,9 @@ import { securityApi } from "../components/api/securityApi";
 
 export type initialStateType = typeof initialState;
 let initialState = {
-  userId: null,
-  email: null,
-  login: null,
+  userId: null as (number | null),
+  email: null as string | null,
+  login: null as string | null,
   isAuth: false,
   captchaUrl: null as string | null,
 };
@@ -28,7 +28,7 @@ export const actions = {
     } as const),
   getCaptchaUrlSuccess: (captchaUrl: string) =>
     ({
-      type: "SN/auth/GET_CAPTCH_URL_SUCCESS",
+      type: "SN/auth/GET_CAPTCHA_URL_SUCCESS",
       payload: { captchaUrl },
     } as const),
 };
@@ -41,9 +41,9 @@ const authReducer = (
     case "SN/auth/SET-USER-DATA":
       return {
         ...state,
-        ...action.payload , //need to add payload?
+        ...action.payload, //need to add payload?
       };
-    case "SN/auth/GET_CAPTCH_URL_SUCCESS":
+    case "SN/auth/GET_CAPTCHA_URL_SUCCESS":
       return {
         ...state,
         ...action.payload,
