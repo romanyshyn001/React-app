@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { profileAPI, usersAPI } from "../components/api/api";
+import { profileAPI } from "../components/api/profileApi";
 import { PhotosType, PostType, ProfileType } from "../types/types";
 import { AppStateType } from "./redux-store";
 
@@ -122,38 +122,40 @@ type ThunkProfileType = ThunkAction<
 export const getUserProfile = (userId: number): ThunkProfileType => async (
   dispatch
 ) => {
-  usersAPI.getProfile(userId).then((response) => {
-    dispatch(setUserProfile(response.data));
+  profileAPI.getProfile(userId).then((response) => {
+    dispatch(setUserProfile(response));
   });
 };
 export const getStatus = (userId: number): ThunkProfileType => async (
   dispatch
 ) => {
   profileAPI.getStatus(userId).then((response) => {
-    dispatch(setStatus(response.data));
+    dispatch(setStatus(response));
   });
 };
-export const updateStatus = (status: string):ThunkProfileType => async(dispatch) => {
+export const updateStatus = (status: string): ThunkProfileType => async (
+  dispatch
+) => {
   profileAPI.updateStatus(status).then((response) => {
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
       dispatch(setStatus(status));
     }
   });
 };
-export const savePhoto = (file: any):ThunkProfileType => async(dispatch) => {
+export const savePhoto = (file: any): ThunkProfileType => async (dispatch) => {
   profileAPI.savePhoto(file).then((responce) => {
-    if (responce.data.resultCode === 0) {
-      dispatch(savePhotoSuccess(responce.data.data.photos));
+    if (responce.resultCode === 0) {
+      dispatch(savePhotoSuccess(responce.data.photos));
     }
   });
 };
-export const saveProfile = (profile: ProfileType):ThunkProfileType => async(
+export const saveProfile = (profile: ProfileType): ThunkProfileType => async (
   dispatch,
   getState: any
 ) => {
   const userId = getState().auth.userId;
   profileAPI.saveProfile(profile).then((responce) => {
-    if (responce.data.resultCode === 0) {
+    if (responce.resultCode === 0) {
       dispatch(getUserProfile(userId));
     }
   });
