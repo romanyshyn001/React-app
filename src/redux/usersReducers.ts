@@ -30,6 +30,7 @@ const initiateState = {
   currentPage: 1,
   isFetching: true,
   followingInProgress: [] as Array<number>, // array of user id's
+  pageTitle: "SAMURAI",
 };
 type InitialStateType = typeof initiateState;
 

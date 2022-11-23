@@ -1,43 +1,48 @@
 import "./App.css";
 import NavBar from "./components/navBar/NavBar";
 import { Routes, Route } from "react-router-dom";
-import React, {  Suspense } from "react";
-import UsersContainer from "./components/Users/UsersContainer";
+import React, { Suspense } from "react";
 import HeaderContainer from "./components/header/HeaderContainer";
-// import LoginContainer from "./components/Login/LoginContainer";
 import { Component } from "react";
 import { connect } from "react-redux";
 import Preloader from "./components/Preloader/Preloader";
 import { initializedApp } from "./redux/app-reducer";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./redux/redux-store";
+import store, { AppStateType } from "./redux/redux-store";
 import LoginForm from "./components/Login/LoginForm";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const DialogsContainer = React.lazy(() =>
-  import("./components/Dialogs/dialogContainer")
+  import("./components/Dialogs/DialogContainer")
 );
 const ProfileContainer = React.lazy(() =>
   import("./components/profile/Myposts/ProfileInfo/ProfileContainer")
 );
 
-class App extends Component {
 
-  catchAllUnhandledErrors = (reason, promise) => {
-    alert('some Error occuped')
-    // console.error(promiseRejectionEvent)
-  }
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializedApp: () => void
+}
+class App extends Component<MapPropsType & DispatchPropsType> {
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+    alert("some Error occuped");
+  };
   componentDidMount() {
     this.props.initializedApp();
     window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
-  componentWillUnmount(){
-    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
-
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnhandledErrors
+    );
   }
 
   render() {
+
     if (!this.props.initialized) {
       return <Preloader />;
     }
@@ -48,12 +53,15 @@ class App extends Component {
         <div className="app-wrapper-content">
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-            <Route path="/" element={<ProfileContainer />} />
+              <Route path="/" element={<ProfileContainer />} />
 
               <Route path="/dialogs" element={<DialogsContainer />} />
               <Route path="/profile/" element={<ProfileContainer />} />
-              <Route path="/profile/:userId" element={<ProfileContainer />} />
-              <Route path="/users" element={<UsersContainer pageTitle={"SAMURAI"}/>} />
+              <Route path="/profile/:userId" element={<ProfileContainer pageTitle={'pageTitle'} />} />
+              <Route
+                path="/users"
+                element={<UsersContainer />}
+              />
               <Route path="/login" element={<LoginForm />} />
               <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
@@ -63,13 +71,13 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
 });
 
 let AppContainer = connect(mapStateToProps, { initializedApp })(App);
 
-const SamuraiJsApp = (props) => {
+const SamuraiJsApp: React.FC = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>

@@ -15,14 +15,14 @@ let initialState = {
     { id: 4, message: "Bingo" },
     { id: 5, message: "Great Job!" },
   ] as Array<MessageType>,
-  // newDialogPost: ''
+  newDialogPost: ''
 };
 
 export const actions = {
-  updateDialogTextCreator: (newDialogPost: string) => ({
+  sendDialogText: (newDialogPost: string) => ({
     type: "SN/SEND-NEW-DIALOG-TEXT",
     newDialogPost,
-  }),
+  } as const),
 };
 
 const dialogReducer = (state = initialState, action: ActionsType) => {
