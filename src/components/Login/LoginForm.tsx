@@ -8,11 +8,9 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { AppStateType } from "../../redux/redux-store";
 import { Navigate } from "react-router-dom";
-import { login } from '../../redux/auth-reducer'
+import { login } from "../../redux/auth-reducer";
 
-const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth, captchaUrl }) => {
-  // debugger
-  // console.log('isAuth', isAuth);
+const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth, login, captchaUrl }: any) => {
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -27,8 +25,7 @@ const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth
       email: Yup.string().email("Invalid Email").required("*Required"),
     }),
     onSubmit: (values, { setSubmitting, setStatus }) => {
-      console.log(values)
-      login(values, setStatus);
+      login(values, setStatus)
       setSubmitting(false);
     },
   });
@@ -44,7 +41,9 @@ const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth
         "email",
         formik.handleChange,
         formik.handleBlur,
-        formik.values.email
+        formik.values.email,
+        '',
+        s.login
       )}
 
       {formik.touched.email && formik.errors.email ? (
@@ -57,7 +56,9 @@ const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth
         "password",
         formik.handleChange,
         formik.handleBlur,
-        formik.values.password
+        formik.values.password,
+        '',
+        s.login
       )}
       {formik.touched.password && formik.errors.password ? (
         <div className={s.password}>{formik.errors.password}</div>
@@ -88,6 +89,7 @@ const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth
 type MapStatePropsType = {
   captchaUrl: string | null
   isAuth: boolean,
+  //todo: message from api show
   // messageAPI: String,
 }
 type MapDispatchPropsType = {
@@ -96,17 +98,16 @@ type MapDispatchPropsType = {
     email: string,
     password: string,
     rememberMe: boolean,
-  ) => void
+  ) => Promise<void>
 }
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
+    //todo: message later from api
     // messageAPI: state.auth.messageAPI,
   };
 };
-export default compose(connect(mapStateToProps, { login }))(LoginForms)
+export default compose<React.ComponentType>(connect(mapStateToProps, { login }))(LoginForms)
 
-
-// export default LoginForms;

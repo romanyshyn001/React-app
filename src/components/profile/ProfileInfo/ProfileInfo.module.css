@@ -1,0 +1,23 @@
+.images {
+  height: 200px;
+  width: 1000px;
+}
+
+.description {
+  padding-left: 15px;
+}
+
+.userPhoto {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 40px;
+}
+
+.contact {
+  padding-left: 10px
+}
+
+.checkbox {
+  height:45px;
+  width: 20px
+}

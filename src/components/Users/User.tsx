@@ -1,10 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/userPhoto.png";
+import { UsersType } from "../../types/types";
 import Paginator from "../common/Paginator/Paginator";
 import styles from "./users.module.css";
 
-let User = ({ user, followingInProgress, follow, unfollow }) => {
+type PropsType = {
+  user: UsersType
+  followingInProgress: Array<number>
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
+}
+
+let User: React.FC<PropsType> = ({ user, followingInProgress, follow, unfollow }) => {
   return (
     <React.Fragment>
       <div>

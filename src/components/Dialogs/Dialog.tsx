@@ -10,19 +10,11 @@ type OwnPropsType = {
     sendDialogText: (messageText: string) => void
 }
 
-export type NewMessageFormType = {
-    addDialogPost: string
-}
 const Dialogs: React.FC<OwnPropsType> = (props) => {
 
     let state = props.dialogPage
-    let dialogsElems = state.dialogsData.map(dialog => <ChatItem name={dialog.name} key={dialog.id} />)
+    let dialogsElems = state.dialogsData.map(dialog => <ChatItem name={dialog.name} id={dialog.id}  key={dialog.id}/>)
     let messagesElems = state.messageData.map(messageItem => <Message message={messageItem.message} key={messageItem.id} />)
-
-
-    let updateDialogText = (values: NewMessageFormType) => {
-        props.sendDialogText(values.addDialogPost)
-    }
 
     return (
         <div className={s.chat}>
@@ -32,7 +24,7 @@ const Dialogs: React.FC<OwnPropsType> = (props) => {
             <div className={s.messages}>
                 {messagesElems}
                 <div>
-                    <AddMessageForm updateDialogText={updateDialogText} />
+                    <AddMessageForm sendDialogText={props.sendDialogText} />
                 </div>
             </div>
         </div>

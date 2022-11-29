@@ -1,5 +1,5 @@
 import { BaseThunkType, InferActionType } from "./redux-store";
-import { authAPI } from "../components/api/authApi";
+import { authAPI, Authorize } from "../components/api/authApi";
 import {
   ResultCodeForCaptchaEnum,
   ResultCodesEnum,
@@ -8,7 +8,7 @@ import { securityApi } from "../components/api/securityApi";
 
 export type initialStateType = typeof initialState;
 let initialState = {
-  userId: null as (number | null),
+  userId: null as number | null,
   email: null as string | null,
   login: null as string | null,
   isAuth: false,
@@ -61,9 +61,10 @@ export const getAuthUserData = (): ThunkAuthType => async (dispatch) => {
   }
 };
 
-export const login = (values: any, setStatus: any): ThunkAuthType => async (
-  dispatch
-) => {
+export const login = (
+  values: Authorize,
+  setStatus: any
+): ThunkAuthType => async (dispatch) => {
   let loginData = await authAPI.login(values);
   if (loginData.resultCode === ResultCodesEnum.Success) {
     dispatch(getAuthUserData());

@@ -16,5 +16,5 @@ let mapStateToProps = (state: AppStateType) => {
 // ADD TO COMPOSE 
 //withAuthNavigate
 export default compose<React.ComponentType>(
-  connect(mapStateToProps, { ...actions })
+  connect(mapStateToProps, { ...actions },), withAuthNavigate
 )(Dialogs);

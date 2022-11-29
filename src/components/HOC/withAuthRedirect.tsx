@@ -16,7 +16,6 @@ type DispatchPropsType = {
 export function withAuthNavigate(Component: React.ComponentType) {
 
    const NavigateComponent: React.FC<MapPropsType & DispatchPropsType> = (props) => {
-      // console.log('props', props)
       let { isAuth, ...restProps } = props
 
       if (!isAuth)

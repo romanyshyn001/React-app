@@ -3,17 +3,19 @@ import { useFormik } from "formik";
 import * as Yup from 'yup'
 import s from './Dialogs.module.css';
 import { createField } from "../common/FormsControls/FormsControl";
-import { NewMessageFormType } from "./Dialog";
 
-// Переробити або видалити
-type AddDialogPostType = Extract<keyof NewMessageFormType, string>
-type PropsType = {
-  updateDialogText: () => void;
-  addDialogPost: string;
+export type NewMessageFormType = {
+  addDialogPost: string
 }
-//
-export const AddMessageForm = (props:any) => {
-  // console.log('props', props)
+// Change or remove later
+// type AddDialogPostType = Extract<keyof NewMessageFormType, string>
+
+type PropsType = {
+  sendDialogText: (messageText: string) => void
+}
+
+export const AddMessageForm: React.FC<PropsType> = ({ sendDialogText }: PropsType) => {
+
   const formik = useFormik({
     initialValues: {
       addDialogPost: ''
@@ -24,9 +26,8 @@ export const AddMessageForm = (props:any) => {
         .min(2, 'Minimun characters 2')
         .required('Required'),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log('values', values)
-      props.updateDialogText(values)
+    onSubmit: ({ addDialogPost }: NewMessageFormType, { resetForm }) => {
+      sendDialogText(addDialogPost)
       resetForm()
     }
   }
@@ -34,13 +35,6 @@ export const AddMessageForm = (props:any) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      {/* <textarea className={s.inputText} 
-            id='addDialogPost'
-            name='addDialogPost'
-            type='text'
-            value={ formik.values.addDialogPost }
-            onChange={ formik.handleChange } 
-      /> */}
       {createField(
         "addDialogPost",
         "addDialogPost",

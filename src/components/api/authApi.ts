@@ -13,13 +13,20 @@ type MeResponceDataType = {
   email: string;
   login: string;
 };
+export type Authorize = {
+  email: string;
+  password: string;
+  captcha: string | null;
+  rememberMe: boolean;
+};
 export const authAPI = {
   async me() {
     return await instance
       .get<ResponceTypeApi<MeResponceDataType>>(`auth/me`)
       .then((res) => res.data);
   },
-  async login(values: any) {
+
+  async login(values: Authorize) {
     return await instance
       .post<
         ResponceTypeApi<
@@ -27,7 +34,9 @@ export const authAPI = {
           ResultCodeForCaptchaEnum | ResultCodesEnum
         >
       >(`auth/login`, values)
-      .then((res) => res.data);
+      .then((res) => {
+        return res.data;
+      });
   },
   async logout() {
     return await instance.delete(`auth/login`).then((res) => {

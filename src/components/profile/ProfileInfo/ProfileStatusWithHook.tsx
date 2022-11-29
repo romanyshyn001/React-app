@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ProfileStatusWithHooks = (props) => {
+const ProfileStatusWithHooks = (props:any) => {
   let [editMode, setEditMode] = useState(false);
   let [status, setStatus] = useState(props.status);
 
@@ -15,7 +15,7 @@ const ProfileStatusWithHooks = (props) => {
     setEditMode(false);
     props.updateStatus(status);
   };
-  const onStatusChange = (event) => {
+  const onStatusChange = (event:any) => {
     setStatus(event.target.value);
   };
 
@@ -28,7 +28,7 @@ const ProfileStatusWithHooks = (props) => {
         </div>
       )}
       {editMode && (
-        <div>
+        <div><p><b>Status:</b></p>
           <input
             onChange={onStatusChange}
             onBlur={deactivatedEditMode}

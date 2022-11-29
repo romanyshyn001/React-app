@@ -12,7 +12,6 @@ let initiateState = {
   ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: "",
-  newPostText: "",
 };
 
 export const actions = {
@@ -43,7 +42,10 @@ export const actions = {
     } as const),
 };
 
-const profileReducer = (state = initiateState, action: ActionsType) => {
+const profileReducer = (
+  state = initiateState,
+  action: ActionsType
+): initiateStateType => {
   switch (action.type) {
     case "SN/UPDATE-NEW-POST-TEXT": {
       return {
@@ -69,7 +71,7 @@ const profileReducer = (state = initiateState, action: ActionsType) => {
     case "SN/SAVE_PHOTO_SUCCESS": {
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photos },
+        profile: { ...state.profile, photos: action.photos } as ProfileType,
       };
     }
     default:

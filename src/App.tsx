@@ -2,7 +2,6 @@ import "./App.css";
 import NavBar from "./components/navBar/NavBar";
 import { Routes, Route } from "react-router-dom";
 import React, { Suspense } from "react";
-import HeaderContainer from "./components/header/HeaderContainer";
 import { Component } from "react";
 import { connect } from "react-redux";
 import Preloader from "./components/Preloader/Preloader";
@@ -12,13 +11,14 @@ import { Provider } from "react-redux";
 import store, { AppStateType } from "./redux/redux-store";
 import LoginForm from "./components/Login/LoginForm";
 import UsersContainer from "./components/Users/UsersContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogContainer")
 );
 const ProfileContainer = React.lazy(() =>
-  import("./components/profile/Myposts/ProfileInfo/ProfileContainer")
-);
+  import("./components/profile/ProfileContainer")
+);  
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -57,7 +57,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
               <Route path="/dialogs" element={<DialogsContainer />} />
               <Route path="/profile/" element={<ProfileContainer />} />
-              <Route path="/profile/:userId" element={<ProfileContainer pageTitle={'pageTitle'} />} />
+              <Route path="/profile/:userId" element={<ProfileContainer  />} />
               <Route
                 path="/users"
                 element={<UsersContainer />}

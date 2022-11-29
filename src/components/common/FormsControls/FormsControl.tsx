@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export const createField = (
   id: any,
   name: string,
@@ -7,8 +8,10 @@ export const createField = (
   handleChange: any,
   handleBlur: any,
   paramValue: any,
-  // placeholder: string
+  placeholder?: string,
+  style?: any
 ) => {
+
   return (
     <div>
       <input
@@ -18,7 +21,8 @@ export const createField = (
         onChange={handleChange}
         onBlur={handleBlur}
         value={paramValue}
-        // placeholder={placeholder}
+        placeholder={placeholder}
+        className={style}
       />
     </div>
   );

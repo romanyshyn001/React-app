@@ -18,15 +18,24 @@ export type ContactsType = {
   mainLink: string;
 };
 export type ProfileType = {
-  userId: number;
+  userId?: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
   contacts: ContactsType;
   photos: PhotosType;
+  aboutMe: string;
 };
 export type UsersType = {
-    id: number
-    status: string
-    photos: PhotosType
- }
+  id: number;
+  status: string;
+  photos: PhotosType;
+  followed: boolean;
+  name: string;
+};
+export type UserInfoChangeType = {
+  fullName: string;
+  lookingForAJobDescription: string;
+  aboutMe: string;
+  lookingForAJob: boolean;
+};
