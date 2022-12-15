@@ -4,17 +4,23 @@ import * as Yup from "yup";
 import s from "./login.module.css";
 import { createField } from "../common/FormsControls/FormsControl";
 
-import { connect } from "react-redux";
-import { compose } from "redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
 import { Navigate } from "react-router-dom";
 import { login } from "../../redux/auth-reducer";
+import { Authorize } from '../api/authApi'
 
-const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth, login, captchaUrl }: any) => {
+
+export const LoginForms: React.FC = () => {
+  const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
+  const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+
+  const dispatch = useDispatch()
+
   const formik = useFormik({
     initialValues: {
-      password: "",
       email: "",
+      password: "",
       rememberMe: false,
       captcha: ""
     },
@@ -24,8 +30,8 @@ const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth
         .required("Required"),
       email: Yup.string().email("Invalid Email").required("*Required"),
     }),
-    onSubmit: (values, { setSubmitting, setStatus }) => {
-      login(values, setStatus)
+    onSubmit: (values: Authorize, { setSubmitting, setStatus }) => {
+      dispatch(login(values, setStatus))
       setSubmitting(false);
     },
   });
@@ -86,28 +92,4 @@ const LoginForms: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ isAuth
     </form>
   );
 };
-type MapStatePropsType = {
-  captchaUrl: string | null
-  isAuth: boolean,
-  //todo: message from api show
-  // messageAPI: String,
-}
-type MapDispatchPropsType = {
-  login: (
-    captcha: string | null,
-    email: string,
-    password: string,
-    rememberMe: boolean,
-  ) => Promise<void>
-}
-
-let mapStateToProps = (state: AppStateType): MapStatePropsType => {
-  return {
-    captchaUrl: state.auth.captchaUrl,
-    isAuth: state.auth.isAuth,
-    //todo: message later from api
-    // messageAPI: state.auth.messageAPI,
-  };
-};
-export default compose<React.ComponentType>(connect(mapStateToProps, { login }))(LoginForms)
 

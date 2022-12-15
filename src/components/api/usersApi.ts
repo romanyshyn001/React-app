@@ -8,9 +8,17 @@ export type GetUSersItems = {
 };
 
 export const usersAPI = {
-  getUsers: async (currentPage = 1, pageSize = 10) => {
+  getUsers: async (
+    currentPage = 1,
+    pageSize = 10,
+    term: string = "",
+    friend: null | boolean = null
+  ) => {
     return await instance
-      .get<GetUSersItems>(`users?page=${currentPage}&count=${pageSize}`)
+      .get<GetUSersItems>(
+        `users?page=${currentPage}&count=${pageSize}&term=${term}` +
+          (friend === null ? "" : `&friend=${friend}`)
+      )
       .then((res) => res.data);
   },
   unfollow: async (userId: number) => {

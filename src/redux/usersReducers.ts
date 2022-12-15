@@ -4,6 +4,7 @@ import { UsersType } from "../types/types";
 import { AppStateType, BaseThunkType } from "./redux-store";
 import { Dispatch, Action } from "redux";
 import { ThunkAction } from "redux-thunk";
+import { ResponceTypeApi } from "../components/api/api";
 
 export type ReturnNestedType<T> = T extends {
   [keys: string]: infer U;
@@ -31,8 +32,13 @@ const initiateState = {
   isFetching: true,
   followingInProgress: [] as Array<number>, // array of user id's
   pageTitle: "SAMURAI",
+  filter: {
+    term: "",
+    friend: null as null | boolean,
+  },
 };
-type InitialStateType = typeof initiateState;
+export type InitialStateType = typeof initiateState;
+export type FilterType = typeof initiateState.filter;
 
 export const actions = {
   followSuccess: (userId: number) =>
@@ -72,6 +78,11 @@ export const actions = {
       isFetching,
       userId,
     } as const),
+  setFilter: (filter: FilterType) =>
+    ({
+      type: InferLiteralFromString("SN/USERS/SET_FILTER"),
+      payload: filter,
+    } as const),
 };
 
 const usersReducers = (
@@ -110,6 +121,12 @@ const usersReducers = (
           : state.followingInProgress.filter((id) => id !== action.userId),
       };
     }
+    case "SN/USERS/SET_FILTER": {
+      return {
+        ...state,
+        filter: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -117,12 +134,15 @@ const usersReducers = (
 
 export const requestUsers = (
   page: number,
-  pageSize: number
+  pageSize: number,
+  filter: FilterType
 ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => {
   return async (dispatch, getState) => {
-    // let a = getState();
     dispatch(actions.toggleIsFetching(true));
-    let data = await usersAPI.getUsers(page, pageSize);
+    dispatch(actions.setCurrentPage(page));
+    dispatch(actions.setFilter(filter));
+
+    let data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend);
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
@@ -132,12 +152,14 @@ export const requestUsers = (
 const _followUnfollowFlow = async (
   dispatch: DispatchType,
   userId: number,
-  apiMethod: any,
+  apiMethod: (userId: number) => Promise<ResponceTypeApi>,
   actionCreator: (userId: number) => ActionsTypes
 ) => {
   dispatch(actions.toogleFollowingProgress(true, userId));
+
   let responce = await apiMethod(userId);
-  if (responce.data.resultCode === 0) {
+
+  if (responce.resultCode === 0) {
     dispatch(actionCreator(userId));
   }
   dispatch(actions.toogleFollowingProgress(false, userId));
@@ -145,7 +167,7 @@ const _followUnfollowFlow = async (
 
 export const follow = (userId: number): ThunkType => {
   return async (dispatch: DispatchType) => {
-    _followUnfollowFlow(
+    await _followUnfollowFlow(
       dispatch,
       userId,
       usersAPI.follow.bind(usersAPI),
@@ -155,7 +177,7 @@ export const follow = (userId: number): ThunkType => {
 };
 export const unfollow = (userId: number): ThunkType => {
   return async (dispatch: DispatchType) => {
-    _followUnfollowFlow(
+    await _followUnfollowFlow(
       dispatch,
       userId,
       usersAPI.unfollow.bind(usersAPI),

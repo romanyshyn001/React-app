@@ -9,16 +9,16 @@ import { initializedApp } from "./redux/app-reducer";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store, { AppStateType } from "./redux/redux-store";
-import LoginForm from "./components/Login/LoginForm";
-import UsersContainer from "./components/Users/UsersContainer";
+import UserPage from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import { LoginForms } from "./components/Login/LoginForm";
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogContainer")
 );
 const ProfileContainer = React.lazy(() =>
   import("./components/profile/ProfileContainer")
-);  
+);
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -57,12 +57,12 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
               <Route path="/dialogs" element={<DialogsContainer />} />
               <Route path="/profile/" element={<ProfileContainer />} />
-              <Route path="/profile/:userId" element={<ProfileContainer  />} />
+              <Route path="/profile/:userId" element={<ProfileContainer />} />
               <Route
                 path="/users"
-                element={<UsersContainer />}
+                element={<UserPage />}
               />
-              <Route path="/login" element={<LoginForm />} />
+              <Route path="/login" element={<LoginForms />} />
               <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
           </Suspense>
