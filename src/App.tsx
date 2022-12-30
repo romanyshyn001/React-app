@@ -10,7 +10,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store, { AppStateType } from "./redux/redux-store";
 import UserPage from "./components/Users/UsersContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import { LoginForms } from "./components/Login/LoginForm";
 
 const DialogsContainer = React.lazy(() =>
