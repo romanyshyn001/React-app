@@ -1,6 +1,6 @@
 import "./App.css";
 import NavBar from "./components/navBar/NavBar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import React, { Suspense } from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
@@ -10,8 +10,23 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store, { AppStateType } from "./redux/redux-store";
 import UserPage from "./components/Users/UsersContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import { LoginForms } from "./components/Login/LoginForm";
+
+import { LaptopOutlined, NotificationOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
+import { Avatar, Col, MenuProps, Row } from 'antd';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import AppHeader from "./components/Header/HeaderInfo";
+
+const { SubMenu } = Menu
+const { Header, Content, Footer, Sider } = Layout;
+
+const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
+  key,
+  label: `nav ${key}`,
+}));
+
+
+
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogContainer")
@@ -47,27 +62,45 @@ class App extends Component<MapPropsType & DispatchPropsType> {
       return <Preloader />;
     }
     return (
-      <div className="app-wrapper">
-        <HeaderContainer />
-        <NavBar />
-        <div className="app-wrapper-content">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<ProfileContainer />} />
+      <Layout>
+        <AppHeader />
+        <Content style={{ padding: '0 50px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <Layout style={{ padding: '24px 0', background: 'colorBgContainer' }}>
+            <Sider style={{ background: 'colorBgContainer' }} width={200}>
+              <Menu mode="inline"
+                style={{ height: '100%' }}>
+                <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
 
-              <Route path="/dialogs" element={<DialogsContainer />} />
-              <Route path="/profile/" element={<ProfileContainer />} />
-              <Route path="/profile/:userId" element={<ProfileContainer />} />
-              <Route
-                path="/users"
-                element={<UserPage />}
-              />
-              <Route path="/login" element={<LoginForms />} />
-              <Route path="*" element={<div>404 Not Found</div>} />
-            </Routes>
-          </Suspense>
-        </div>
-      </div>
+                  <Menu.Item><NavLink to='/profile'>Profile</NavLink></Menu.Item>
+                  <Menu.Item><NavLink to='/dialogs'>Messages</NavLink></Menu.Item>
+
+                </SubMenu>
+              </Menu>
+            </Sider>
+            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                  <Route path="/" element={<ProfileContainer />} />
+                  <Route path="/dialogs" element={<DialogsContainer />} />
+                  <Route path="/profile/" element={<ProfileContainer />} />
+                  <Route path="/profile/:userId" element={<ProfileContainer />} />
+                  <Route
+                    path="/developers"
+                    element={<UserPage />}
+                  />
+                  <Route path="/login" element={<LoginForms />} />
+                  <Route path="*" element={<div>404 Not Found</div>} />
+                </Routes>
+              </Suspense>
+            </Content>
+          </Layout>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>Social Network created by R. R.</Footer>
+      </Layout>
     );
   }
 }

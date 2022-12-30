@@ -6,15 +6,15 @@ const NavBar: React.FC = () => {
   return (
     <nav className={s.nav}>
 
-      <div className={s.active}>
+      {/* <div className={s.active}>
         <NavLink to='/profile'>Profile</NavLink>
       </div>
       <div className={s.item}>
         <NavLink to='/dialogs'>Messages</NavLink>
-      </div>
+      </div> */}
       <div className={s.item}>
         <div className={s.item}>
-          <NavLink to='/users'>Users</NavLink>
+          {/* <NavLink to='/users'>Users</NavLink> */}
         </div>
         <NavLink to='/news'>News</NavLink>
       </div>

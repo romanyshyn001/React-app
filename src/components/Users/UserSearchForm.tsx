@@ -4,10 +4,7 @@ import { useSelector } from "react-redux";
 import { getUserFilter } from "../../redux/users-selectors";
 import { FilterType } from "../../redux/usersReducers";
 
-const usersSearchFormValidate = (values: any) => {
-  const errors = {}
-  return errors
-}
+
 type PropsType = {
   onFilterChanged: (filter: FilterType) => void
 }
@@ -17,9 +14,20 @@ type Formtype = {
 }
 type FriendFormType = 'true' | 'false' | 'null'
 
+
+
+const usersSearchFormValidate = (values: any) => {
+  const errors = {}
+  return errors
+}
+
 const UserSearchForm: React.FC<PropsType> = React.memo((props) => {
+
   const filter = useSelector(getUserFilter)
   const submit = (values: Formtype, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
+
+
+    //function receives values from search input 
     const filter: FilterType = {
       term: values.term,
       friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
