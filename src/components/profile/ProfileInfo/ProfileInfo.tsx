@@ -5,6 +5,7 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHook";
 import userPhoto from "../../../assets/images/userPhoto.png";
 import ProfileDataForm from "./ProfileDataForm";
 import { ContactsType, ProfileType, UserInfoChangeType } from "../../../types/types";
+import { Button, Typography } from "antd";
 
 type PropsType = {
   profile: ProfileType | null;
@@ -36,7 +37,7 @@ const ProfileInfo: React.FC<PropsType> = ({
       }
   };
 
-
+  
 
   return (
     <div>
@@ -47,7 +48,11 @@ const ProfileInfo: React.FC<PropsType> = ({
           className={s.userPhoto}
           alt="avatar"
         />
-        {isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
+        {isOwner && <>
+      
+        <input type={"file"} onChange={onMainPhotoSelected} />
+        </>
+       }
         {editMode ? (
           <ProfileDataForm
             profile={profile}
@@ -77,11 +82,12 @@ type ProfileDataPropsType = {
   goToEditMode: () => void
 }
 const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataPropsType) => {
+  const { Text, Link } = Typography;
   return (
     <div>
       {isOwner && (
         <div>
-          <button onClick={goToEditMode}>Edit</button>
+          <Button className={s.btn} type="primary" onClick={goToEditMode}>Edit</Button>
         </div>
       )}
       <div>

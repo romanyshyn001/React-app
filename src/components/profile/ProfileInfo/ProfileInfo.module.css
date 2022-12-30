@@ -21,3 +21,8 @@
   height:45px;
   width: 20px
 }
+
+/* ant desifgned elements */
+.btn span {
+    display: contents;
+}

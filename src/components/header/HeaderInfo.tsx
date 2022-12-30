@@ -1,7 +1,7 @@
 import s from "./Header.module.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Avatar, Col, Menu, Row, Layout, Button, Space } from "antd";
+import { Avatar, Col, Menu, Row, Layout, Button } from "antd";
 import { UserOutlined, TeamOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUserLogin, selectIsAuth } from "../../redux/authSelectors";
@@ -9,7 +9,6 @@ import { logout } from "../../redux/auth-reducer";
 import { getProfileSelector } from "../../redux/profileSelector";
 
 export type MapPropsType = {}
-
 const AppHeader: React.FC<MapPropsType> = (props) => {
 
   const isAuth = useSelector(selectIsAuth)
@@ -35,8 +34,8 @@ const AppHeader: React.FC<MapPropsType> = (props) => {
         {isAuth ? (
           <>
             <Col span={2}>
-              <Avatar src={profile !== null && profile.photos.small} alt={login || ''} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-
+              <Avatar src={profile !== null && profile.photos.small}
+                alt={login || ''} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
             </Col>
             <Col span={4}>
               <Button className={s.btn} danger onClick={logOutCallback}>Log Out</Button>
