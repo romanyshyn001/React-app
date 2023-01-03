@@ -5,7 +5,7 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHook";
 import userPhoto from "../../../assets/images/userPhoto.png";
 import ProfileDataForm from "./ProfileDataForm";
 import { ContactsType, ProfileType, UserInfoChangeType } from "../../../types/types";
-import { Button, Typography } from "antd";
+import { Button, Typography, Upload } from "antd";
 
 type PropsType = {
   profile: ProfileType | null;
@@ -33,11 +33,12 @@ const ProfileInfo: React.FC<PropsType> = ({
   const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files != null)
       if (event.target.files.length) {
+        console.log('event', event.target.files[0])
         savePhoto(event.target.files[0]);
       }
   };
 
-  
+
 
   return (
     <div>
@@ -49,10 +50,10 @@ const ProfileInfo: React.FC<PropsType> = ({
           alt="avatar"
         />
         {isOwner && <>
-      
-        <input type={"file"} onChange={onMainPhotoSelected} />
+
+          <input type={"file"} onChange={onMainPhotoSelected} />
         </>
-       }
+        }
         {editMode ? (
           <ProfileDataForm
             profile={profile}

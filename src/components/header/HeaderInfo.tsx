@@ -9,6 +9,9 @@ import { logout } from "../../redux/auth-reducer";
 import { getProfileSelector } from "../../redux/profileSelector";
 
 export type MapPropsType = {}
+
+
+
 const AppHeader: React.FC<MapPropsType> = (props) => {
 
   const isAuth = useSelector(selectIsAuth)

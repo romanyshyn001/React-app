@@ -12,10 +12,10 @@ import store, { AppStateType } from "./redux/redux-store";
 import UserPage from "./components/Users/UsersContainer";
 import { LoginForms } from "./components/Login/LoginForm";
 
-import { LaptopOutlined, NotificationOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
-import { Avatar, Col, MenuProps, Row } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import AppHeader from "./components/Header/HeaderInfo";
+import { UserOutlined, } from '@ant-design/icons';
+import { MenuProps, } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
+import AppHeader from "./components/header/HeaderInfo";
 
 const { SubMenu } = Menu
 const { Header, Content, Footer, Sider } = Layout;
