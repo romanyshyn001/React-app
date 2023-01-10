@@ -1,25 +1,25 @@
 {
-  "files": {
-    "main.css": "/React-app/static/css/main.be3206cf.css",
-    "main.js": "/React-app/static/js/main.f4951871.js",
-    "static/css/629.4504d143.chunk.css": "/React-app/static/css/629.4504d143.chunk.css",
-    "static/js/629.c933aec9.chunk.js": "/React-app/static/js/629.c933aec9.chunk.js",
-    "static/css/519.a823e8f9.chunk.css": "/React-app/static/css/519.a823e8f9.chunk.css",
-    "static/js/519.08fbda32.chunk.js": "/React-app/static/js/519.08fbda32.chunk.js",
-    "static/media/userPhoto.png": "/React-app/static/media/userPhoto.20ae3a5fc0daa4ae8dd2.png",
-    "static/media/ava.png": "/React-app/static/media/ava.a5c83cb464c2fd133222.png",
-    "static/media/avaMessage.png": "/React-app/static/media/avaMessage.a5c83cb464c2fd133222.png",
-    "static/media/preloader.gif": "/React-app/static/media/preloader.64161c2205ff923a587d.gif",
-    "index.html": "/React-app/index.html",
-    "main.be3206cf.css.map": "/React-app/static/css/main.be3206cf.css.map",
-    "main.f4951871.js.map": "/React-app/static/js/main.f4951871.js.map",
-    "629.4504d143.chunk.css.map": "/React-app/static/css/629.4504d143.chunk.css.map",
-    "629.c933aec9.chunk.js.map": "/React-app/static/js/629.c933aec9.chunk.js.map",
-    "519.a823e8f9.chunk.css.map": "/React-app/static/css/519.a823e8f9.chunk.css.map",
-    "519.08fbda32.chunk.js.map": "/React-app/static/js/519.08fbda32.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.be3206cf.css",
-    "static/js/main.f4951871.js"
-  ]
+  "main.css": "/React-app/static/css/main.126b01ba.chunk.css",
+  "main.js": "/React-app/static/js/main.30e7f93a.chunk.js",
+  "main.js.map": "/React-app/static/js/main.30e7f93a.chunk.js.map",
+  "static/css/1.533adbc4.chunk.css": "/React-app/static/css/1.533adbc4.chunk.css",
+  "static/js/1.1e0bafea.chunk.js": "/React-app/static/js/1.1e0bafea.chunk.js",
+  "static/js/1.1e0bafea.chunk.js.map": "/React-app/static/js/1.1e0bafea.chunk.js.map",
+  "static/css/2.581786ff.chunk.css": "/React-app/static/css/2.581786ff.chunk.css",
+  "static/js/2.45eebac8.chunk.js": "/React-app/static/js/2.45eebac8.chunk.js",
+  "static/js/2.45eebac8.chunk.js.map": "/React-app/static/js/2.45eebac8.chunk.js.map",
+  "static/js/3.d9977bc3.chunk.js": "/React-app/static/js/3.d9977bc3.chunk.js",
+  "static/js/3.d9977bc3.chunk.js.map": "/React-app/static/js/3.d9977bc3.chunk.js.map",
+  "runtime~main.js": "/React-app/static/js/runtime~main.b915b9cc.js",
+  "runtime~main.js.map": "/React-app/static/js/runtime~main.b915b9cc.js.map",
+  "static/media/userPhoto.png": "/React-app/static/media/userPhoto.73de705e.png",
+  "static/media/preloader.gif": "/React-app/static/media/preloader.a3529090.gif",
+  "static/media/avaMessage.png": "/React-app/static/media/avaMessage.6429af1b.png",
+  "static/media/ava.png": "/React-app/static/media/ava.6429af1b.png",
+  "static/css/main.126b01ba.chunk.css.map": "/React-app/static/css/main.126b01ba.chunk.css.map",
+  "static/css/1.533adbc4.chunk.css.map": "/React-app/static/css/1.533adbc4.chunk.css.map",
+  "static/css/2.581786ff.chunk.css.map": "/React-app/static/css/2.581786ff.chunk.css.map",
+  "index.html": "/React-app/index.html",
+  "precache-manifest.4a9aec73b59c8d02203c08e2fbd50095.js": "/React-app/precache-manifest.4a9aec73b59c8d02203c08e2fbd50095.js",
+  "service-worker.js": "/React-app/service-worker.js"
 }
