@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from 'yup'
 import s from '../Post/Post.module.css'
 import { createField } from "../../../common/FormsControls/FormsControl";
+import { Button } from "antd";
 
 
 type PropsType = {
@@ -40,7 +41,7 @@ const ProfilePostForm = ({ onPostChange }: PropsType) => {
         : null
       }
 
-      <button type='submit'>Add post</button>
+      <Button className={s.btn} type='primary' htmlType="submit">Add post</Button>
     </form>
   )
 }

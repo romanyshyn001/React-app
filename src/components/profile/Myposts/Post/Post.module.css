@@ -9,3 +9,7 @@
 .post {
     color: red;
 }
+
+.btn span{
+    display: contents;
+}

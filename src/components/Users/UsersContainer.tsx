@@ -16,9 +16,8 @@ const UserPage: React.FC<UserPagePropsType> = (props) => {
 
   return (
     <>
-      <h2>Users</h2>
       {isFetching ? <Preloader /> : null}
-     <Users/>
+      <Users />
     </>
   );
 }

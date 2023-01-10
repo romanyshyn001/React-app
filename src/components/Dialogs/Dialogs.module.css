@@ -1,33 +1,47 @@
-.chat{
+.chat {
   display: flex;
 }
 
-.chatItems{
+.chatItems {
   padding-left: 10px;
 }
-.chatItems a{
+
+.chatItems a {
   text-decoration: none;
   color: rgb(86, 105, 105);
 }
 
-.images{
+.images {
   height: 40px;
   width: 40px;
 }
 
-.messages{
+.messages {
   padding-left: 70px;
   padding-top: 10px;
 }
-textarea{
+
+textarea {
   resize: none;
   height: 40px;
   width: 250px;
   margin: 20px 0 0 0;
 }
+
 .dialogPost {
   color: red;
 }
 
+.btn span {
+  display: contents;
+}
 
+.dialogMsg {
+  display: flex;
 
+}
+
+.btn {
+  margin-top: auto;
+  margin-left: 2px;
+}

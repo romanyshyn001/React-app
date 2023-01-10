@@ -1,7 +1,7 @@
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./Myposts/Post/MyPostsContainer";
 import React from "react";
 import { ProfileType, UserInfoChangeType } from "../../types/types";
+import ProfileInfo from "./ProfileInfo/ProfileInfoMain";
 
 type Propstype = {
   profile: ProfileType | null;

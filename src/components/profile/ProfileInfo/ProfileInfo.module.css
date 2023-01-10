@@ -18,11 +18,49 @@
 }
 
 .checkbox {
-  height:45px;
+  height: 45px;
   width: 20px
 }
 
 /* ant desifgned elements */
 .btn span {
-    display: contents;
+  display: contents;
+}
+
+.image:hover {
+  opacity: 0.6;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 160px;
+  height: 160px;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  border-radius: 50%;
+}
+
+.avaLabel {
+  display: inline-block;
+  padding: 2px;
+  cursor: pointer;
+  background-color: #337ab7;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.uploadAva {
+  display: none;
+}
+
+.inputLabel {
+  width: 175px;
+}
+
+.btn span {
+  display: contents;
+}
+.btn{
+  margin-bottom: 10px;
 }

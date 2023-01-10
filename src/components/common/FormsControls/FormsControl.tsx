@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Input } from 'antd';
 
 export const createField = (
   id: any,
@@ -14,7 +14,7 @@ export const createField = (
 
   return (
     <div>
-      <input
+      <Input
         id={id}
         name={name}
         type={type}
