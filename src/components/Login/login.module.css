@@ -1,33 +1,43 @@
-
-label{
+label {
   /* display: flex; */
   margin-top: 10px;
 }
-form{
+
+form {
   margin: 10px;
 }
-button{
+
+button {
   margin-top: 10px;
 }
-.login{
+
+.login {
   height: 25px;
   width: auto;
 }
+
 .checkbox {
   display: flex;
   margin-top: 10px;
 }
-.checkbox label{
+
+.checkbox label {
   margin: 5px;
 }
-.ErrorMessage{
-  color: red;
-  margin-top:5px
-}
-.email  {
-  color: rgb(216, 51, 46);
-}  
 
-.password  {
+.ErrorMessage {
+  color: red;
+  margin-top: 5px
+}
+
+.email {
   color: rgb(216, 51, 46);
-}  
+}
+
+.password {
+  color: rgb(216, 51, 46);
+}
+
+.rememberMe {
+  width: auto;
+}

@@ -4,17 +4,20 @@ import * as Yup from "yup";
 import s from "./Dialogs.module.css";
 import { createField } from "../common/FormsControls/FormsControl";
 import { Button } from "antd";
+import { ProfileType } from "../../types/types";
 
 export type NewMessageFormType = {
   addDialogPost: string;
 };
 type PropsType = {
   sendDialogText: (messageText: string) => void;
+  profile: ProfileType | null
 };
 
 export const AddMessageForm: React.FC<PropsType> = ({
-  sendDialogText,
+  sendDialogText, profile
 }: PropsType) => {
+
   const formik = useFormik({
     initialValues: {
       addDialogPost: "",

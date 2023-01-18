@@ -1,5 +1,4 @@
 import "./App.css";
-import NavBar from "./components/navBar/NavBar";
 import { Routes, Route, NavLink } from "react-router-dom";
 import React, { Suspense } from "react";
 import { Component } from "react";
@@ -12,34 +11,27 @@ import store, { AppStateType } from "./redux/redux-store";
 import UserPage from "./components/Users/UsersContainer";
 import { LoginForms } from "./components/Login/LoginForm";
 
-import { UserOutlined, } from '@ant-design/icons';
-import { MenuProps, } from 'antd';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { UserOutlined } from "@ant-design/icons";
+import { Breadcrumb, Layout, Menu } from "antd";
 import AppHeader from "./components/header/HeaderInfo";
 
-const { SubMenu } = Menu
-const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
+const { Content, Footer, Sider } = Layout;
 
-const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-
-
-
+const ChatPage = React.lazy(() => import("./components/pages/Chat/ChatPage"));
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogContainer")
 );
+
 const ProfileContainer = React.lazy(() =>
   import("./components/profile/ProfileContainer")
 );
 
-
-type MapPropsType = ReturnType<typeof mapStateToProps>
+type MapPropsType = ReturnType<typeof mapStateToProps>;
 type DispatchPropsType = {
-  initializedApp: () => void
-}
+  initializedApp: () => void;
+};
 class App extends Component<MapPropsType & DispatchPropsType> {
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
     alert("some Error occuped");
@@ -57,49 +49,61 @@ class App extends Component<MapPropsType & DispatchPropsType> {
   }
 
   render() {
-
     if (!this.props.initialized) {
       return <Preloader />;
     }
     return (
       <Layout>
         <AppHeader />
-        <Content style={{ padding: '0 50px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
+        <Content style={{ padding: "0 50px" }}>
+          <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
-          <Layout style={{ padding: '24px 0', background: 'colorBgContainer' }}>
-            <Sider style={{ background: 'colorBgContainer' }} width={200}>
-              <Menu mode="inline"
-                style={{ height: '100%' }}>
+          <Layout style={{ padding: "24px 0", background: "colorBgContainer" }}>
+            <Sider
+              style={{ background: "colorBgContainer", minHeight: "500px" }}
+              width={200}
+            >
+              <Menu mode="inline" style={{ height: "100%", overflow: "auto" }}>
                 <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
-
-                  <Menu.Item><NavLink to='/profile'>Profile</NavLink></Menu.Item>
-                  <Menu.Item><NavLink to='/dialogs'>Messages</NavLink></Menu.Item>
+                  <Menu.Item>
+                    <NavLink to="/profile">Profile</NavLink>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <NavLink to="/dialogs">Messages</NavLink>
+                  </Menu.Item>
+                </SubMenu>
+                <SubMenu key="sub2" icon={<UserOutlined />} title="Chat">
+                  <Menu.Item>
+                    <NavLink to="/chat">Chat</NavLink>
+                  </Menu.Item>
 
                 </SubMenu>
               </Menu>
             </Sider>
-            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+            <Content style={{ padding: "0 24px", minHeight: 280 }}>
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                   <Route path="/" element={<ProfileContainer />} />
                   <Route path="/dialogs" element={<DialogsContainer />} />
                   <Route path="/profile/" element={<ProfileContainer />} />
-                  <Route path="/profile/:userId" element={<ProfileContainer />} />
                   <Route
-                    path="/developers"
-                    element={<UserPage />}
+                    path="/profile/:userId"
+                    element={<ProfileContainer />}
                   />
+                  <Route path="/developers" element={<UserPage />} />
                   <Route path="/login" element={<LoginForms />} />
+                  <Route path="/chat" element={<ChatPage />} />
                   <Route path="*" element={<div>404 Not Found</div>} />
                 </Routes>
               </Suspense>
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Social Network created by R. R.</Footer>
+        <Footer style={{ textAlign: "center" }}>
+          Social Network created by R. R.
+        </Footer>
       </Layout>
     );
   }
