@@ -13,7 +13,7 @@ import { LoginForms } from "./components/Login/LoginForm";
 
 import { UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import AppHeader from "./components/header/HeaderInfo";
+import AppHeader from "./components/Header/HeaderInfo";
 
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;

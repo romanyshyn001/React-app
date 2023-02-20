@@ -1,15 +1,17 @@
 import { Dispatch } from "redux";
 import { chatApi, StatusType } from "../../components/api/chatApi";
 import { BaseThunkType, InferActionType } from "../redux-store";
-import { uid } from 'uid';
+import { uid } from "uid";
 
-type ChatMessageAPIType = {
+export type ChatMessageAPIType = {
   message: string;
   photo: string;
   userId: number;
   userName: string;
+  id?: string
 };
-type ChatMessageType = ChatMessageAPIType & {id:string}
+
+type ChatMessageType = ChatMessageAPIType & { id: string };
 
 export type initialStateType = typeof initialState;
 
@@ -39,9 +41,10 @@ const chatReducer = (
     case "SN/chat/MESSAGES_RECEIVED":
       return {
         ...state,
-        messages: [...state.messages, ...action.payload.messages.map(m => ({...m, id: uid()}))].filter(
-          (m, index, array) => index >= array.length - 100
-        ),
+        messages: [
+          ...state.messages,
+          ...action.payload.messages.map((m) => ({ ...m, id: uid() })),
+        ].filter((m, index, array) => index >= array.length - 100),
       };
     case "SN/chat/STATUS_CHANGED":
       return {
@@ -53,7 +56,9 @@ const chatReducer = (
   }
 };
 
-let _newMessageHandler: ((messages: ChatMessageAPIType[]) => void) | null = null;
+let _newMessageHandler:
+  | ((messages: ChatMessageAPIType[]) => void)
+  | null = null;
 
 const newMessageHandler = (dispatch: Dispatch) => {
   if (_newMessageHandler === null) {

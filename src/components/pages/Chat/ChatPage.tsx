@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ChatMessageAPIType,
   sendMessageThunk,
   startMessagesListening,
   stopMessagesListening,
 } from "../../../redux/Chat/chatReducer";
 import { AppStateType } from "../../../redux/redux-store";
 
-type ChatMessageType = {
-  message: string;
-  photo: string;
-  userId: number;
-  userName: string;
-};
+// type ChatMessageType = {
+//   message: string;
+//   photo: string;
+//   userId: number;
+//   userName: string;
+//   id?: string
+// };
 
 const ChatPage = () => {
   return (
@@ -68,15 +70,15 @@ const Messages: React.FC<{}> = React.memo(() => {
 
   return (
     <div style={{ height: "400px", overflow: "auto" }} onScroll={scrollHandler}>
-      {messages.map((m: ChatMessageType, index: number) => (
-        <Message key={index} message={m} />
+      {messages.map((m: ChatMessageAPIType, index: number) => (
+        <Message key={m.id} message={m} />
       ))}
       <div ref={messagesAnchorRed}></div>
     </div>
   );
 });
 
-const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
+const Message: React.FC<{ message: ChatMessageAPIType }> = ({ message }) => {
   return (
     <div>
       <img src={message.photo} alt="avatar" />
