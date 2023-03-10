@@ -79,7 +79,7 @@ const statusChangedHandlerCreator = (dispatch: Dispatch) => {
   }
   return _statusChangedHandler;
 };
-//
+// changes
 export const startMessagesListening = (): ThunkType => async (dispatch) => {
   chatApi.start();
   chatApi.subscribeOnNewMessages(
