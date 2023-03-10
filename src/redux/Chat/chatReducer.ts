@@ -63,7 +63,7 @@ const newMessageHandler = (dispatch: Dispatch) => {
   }
   return _newMessageHandler;
 };
-//
+//comment
 let _statusChangedHandler: ((status: StatusType) => void) | null = null;
 
 const statusChangedHandlerCreator = (dispatch: Dispatch) => {
